@@ -6,35 +6,17 @@
 using namespace machinecontrol;
 
 //===============================Selección de la linea==================
-#define verisionOfSoftware "V4.1.1-05-03-2024"
+#define verisionOfSoftware "V1.1.1-20-04-2024"
 #define LINEA 10 // Posibles valores***************************************************************************************************************************
-                 // 11 para LINEA11
-                 // 10 para LINEA12
-                 // 12 para LINEA12a
-                 // 13 para LINEA13
-                 // 14 para LINEA14
-                 // 15 para LINEA15
-                 // 16 para LINEA16
-                 // 17 para LINEA17
 // Estos valores permiten configurar rapidamente todos los parametros a
 // a definir por Adium desde IT
+
 #define dnsAdium "192.168.1.236"    //
 #define gatewayAdium "10.66.20.254" //"10.66.20.254"
 #define maskAdium "255.255.255.0"
-String deviceIdx = "APISAMAN"; //"APIGENBA"; //
-//----------------------------------------------------------------Logica del sensor + o menos----------------------
-// La linea 16 utiliza el sensor de descarte estuchado con logica negativa
-// 1 logica positiva
-// 0 logica negativa
-#define logica_embazadora_1 0 // 0
-#define logica_embazadora_2 1
-#define logica_transporte_1 1
-#define logica_transporte_2 1
-#define logica_final_transporte_lineal 1
-#define logica_balanza_activa 1
-
+String deviceIdx = "APIGENBA"; //"APIADIUM";
 //=========================Configuracion de Lineas No tocar=========
-#if LINEA == 1 // anterior 12 // Es la linea 12a porque no puedo poner 12a como tipo
+#if LINEA == 1
 const char *ip "10.66.20.56" const char *dns1 dnsAdium const char *gateway gatewayAdium const char *mask maskAdium
     uint8_t mac[] = {0x44, 0x00, 0x21, 0xE1, 0x80, 0x00};
 int inputNumberx[] = {43, 44, 45, 46, 47, 48};
@@ -50,42 +32,84 @@ int inputNumberx[] = {1, 2, 3, 4, 5, 6}; //{1, 2, 3, 4, 5, 6};
 
 #endif
 
+//----------------------------------------------------------------Logica del sensor + o menos----------------------
+// La linea 16 utiliza el sensor de descarte estuchado con logica negativa
+// 1 logica positiva
+// 0 logica negativa
+#define logica_embazadora_1 0 // 0
+#define logica_embazadora_2 1
+#define logica_transporte_1 1
+#define logica_transporte_2 1
+#define logica_final_transporte_lineal 1
+#define logica_balanza_activa 1
+
+#define logica_Descarte_1 1 // 0
+#define logica_Descarte_2 1
+#define logica_Descarte_3 1
+#define logica_Descarte_4 1
+#define logica_Descarte_5 1
+#define logica_Descarte_6 1
+#define logica_Descarte_Manual 1
+#define logica_Paso 1
 //----------------------------------------------------------------Definicion de pin----------------------
+/*
 #define Pin_sensor_embazadora_1 DIN_READ_CH_PIN_03 // Pin_Sensor_descarte_primer_Cajon DIN_READ_CH_PIN_00
 #define Pin_sensor_embazadora_2 DIN_READ_CH_PIN_04 // Pin_Sensor_descarte_Estuchado DIN_READ_CH_PIN_01
 #define Pin_sensor_transporte_1 DIN_READ_CH_PIN_00 // Pin_Sensor_balanza_In DIN_READ_CH_PIN_02
 #define Pin_sensor_transporte_2 DIN_READ_CH_PIN_01 // Pin_Sensor_balanza_Out DIN_READ_CH_PIN_03
 #define Pin_Sensor_final_transporte_lineal DIN_READ_CH_PIN_05
-// #define Pin_Sensor_descarte_segundo_Cajon DIN_READ_CH_PIN_06
+#define Pin_Sensor_descarte_segundo_Cajon DIN_READ_CH_PIN_06
 #define Pin_sensor_transporte_3 DIN_READ_CH_PIN_02 // Pin_Sensor_balanza_activa DIN_READ_CH_PIN_04
+*/
+/*Definimos los pines que van a cada entrada*/
+#define Pin_Descarte_1 DIN_READ_CH_PIN_00
+#define Pin_Descarte_2 DIN_READ_CH_PIN_01
+#define Pin_Descarte_3 DIN_READ_CH_PIN_02
+#define Pin_Descarte_4 DIN_READ_CH_PIN_03
+#define Pin_Descarte_5 DIN_READ_CH_PIN_04
+#define Pin_Descarte_6 DIN_READ_CH_PIN_05
+#define Pin_Descarte_Manual DIN_READ_CH_PIN_06
+#define Pin_paso DIN_READ_CH_PIN_07
 #define Pin_led_Verde 0
 #define Pin_led_Rojo 1
 
 //----------------------------------------------------------------Estado del sensor----------------------
-
+/*
 bool actualEstado_Sensor_embazadora_1 = false;
-bool actualEstado_Sensor_embazadora_2 = false; // actualEstado_Sensor_descarte_estuchado = false;
-bool actualEstado_Sensor_transporte_1 = false; // actualEstado_Sensor_balanza_In = false;
-bool actualEstado_Sensor_transporte_2 = false; // actualEstado_Sensor_balanza_Out = false;
+bool actualEstado_Sensor_embazadora_2 = false;
+bool actualEstado_Sensor_transporte_1 = false;
+bool actualEstado_Sensor_transporte_2 = false;
 bool actualEstado_Sensor_final_transporte_lineal = false;
-bool actualEstado_Sensor_transporte_3 = false; // actualEstado_Sensor_balanza_activa
+bool actualEstado_Sensor_transporte_3 = false;
+*/
+bool actualEstado_Descarte_1 = false;
+bool actualEstado_Descarte_2 = false;
+bool actualEstado_Descarte_3 = false;
+bool actualEstado_Descarte_4 = false;
+bool actualEstado_Descarte_5 = false;
+bool actualEstado_Descarte_6 = false;
+bool actualEstado_Descarte_Manual = false;
+bool actualEstado_Paso = false;
 
 /*
-bool previoEstado_Sensor_descarte_primer_Cajon = false;
-bool previoEstado_Sensor_descarte_estuchado = false;
-bool previoEstado_Sensor_balanza_In = false;
-bool previoEstado_Sensor_balanza_Out = false;
-bool previoEstado_Sensor_final_transporte_lineal = false;
-bool previoEstado_Sensor_balanza_activa = false;
-*/
 bool previoEstado_Sensor_embazadora_1 = false;
 bool previoEstado_Sensor_embazadora_2 = false; // actualEstado_Sensor_descarte_estuchado = false;
 bool previoEstado_Sensor_transporte_1 = false; // actualEstado_Sensor_balanza_In = false;
 bool previoEstado_Sensor_transporte_2 = false; // actualEstado_Sensor_balanza_Out = false;
 bool previoEstado_Sensor_final_transporte_lineal = false;
 bool previoEstado_Sensor_transporte_3 = false; // actualEstado_Sensor_balanza_activa
+*/
+bool previoEstado_Descarte_1 = false;
+bool previoEstado_Descarte_2 = false;
+bool previoEstado_Descarte_3 = false;
+bool previoEstado_Descarte_4 = false;
+bool previoEstado_Descarte_5 = false;
+bool previoEstado_Descarte_6 = false;
+bool previoEstado_Descarte_Manual = false;
+bool previoEstado_Paso = false;
 
 // Tiempo actual donde se esta ejecutando las cuentas
+/*
 int16_t actual_contador_embazadora_1 = 0;      // actual_contador_descarte_primer_cajon
 int16_t actual_contador_embazadora_2 = 0;      // actual_contador_descarte_estuchado = 0;
 int16_t actual_contador_descarte_embazado = 0; // actual_contador_balanza_in = 0;
@@ -95,22 +119,39 @@ int16_t actual_contador_transporte_3 = 0;
 int16_t actual_contador_producto_bueno = 0;
 int16_t actual_contador_fin_linea = 0;
 int AcarreoEtiquetado = 0;
+*/
+int16_t actual_contador_Descarte_1 = false;
+int16_t actual_contador_Descarte_2 = false;
+int16_t actual_contador_Descarte_3 = false;
+int16_t actual_contador_Descarte_4 = false;
+int16_t actual_contador_Descarte_5 = false;
+int16_t actual_contador_Descarte_6 = false;
+int16_t actual_contador_Descarte_Manual = false;
+int16_t actual_contador_producto_bueno = 0;
+int16_t actual_contador_descarte_embazado = 0;
 
 // cuando pasa el tiempo especificado se copian los contadores actuales a estos para poder
 // absorver alguna cuenta equivocada que se halla realizado previamente
+/*
 float previoEnvio_contador_embazadora_1 = 0;
 float previoEnvio_contador_embazadora_2 = 0;
 float previoEnvio_contador_descarte_embazado = 0;
 float previoEnvio_contador_producto_bueno = 0;
+*/
+float previoEnvio_contador_descarte = 0;
+float previoEnvio_contador_producto_bueno = 0;
 
 // cuando pasa el tiempo especificado se copian los contadores previoEnvio a estos para poder
 // ser enviados al servidor
+/*
 float listoEnviar_contador_embazadora_1 = 0;
 float listoEnviar_contador_embazadora_2 = 0;
 float listoEnviar_contador_descarte_embazado = 0;
 float listoEnviar_contador_producto_bueno = 0;
 float listoEnviar_contador_producto_total = 0;
-
+*/
+float listoEnviar_contador_descarte = 0;
+float listoEnviar_contador_producto_bueno = 0;
 /*
 Estos contadores lo usaremos como ayuda para poder visualizar todos los paquetes enviados
 Al enviar los datos se sumara el el dato enviado a este contador y se reiniciaran haciendo uso
@@ -119,9 +160,15 @@ II inicia el contador general
 IR reinicia el contador general
 IP imprime el contador general
 */
+/*
 int16_t contadorGeneral_embazadora_1 = 0;
 int16_t contadorGeneral_embazadora_2 = 0;
 int16_t contadorGeneral_descarte_embazado = 0;
+int16_t contadorGeneral_producto_bueno = 0;
+int16_t contadorGeneral_producto_total = 0;
+*/
+
+int16_t contadorGeneral_descarte = 0;
 int16_t contadorGeneral_producto_bueno = 0;
 int16_t contadorGeneral_producto_total = 0;
 

@@ -109,25 +109,25 @@ this function is called when we need to read the digital input from the sensors
 void funcionActualizarEstadoDeSensoresActual(uint32_t dataIn)
 {
     uint32_t inputs = dataIn; // digital_inputs.readAll();
-    if ((inputs & (1 << Pin_sensor_embazadora_1)) >> Pin_sensor_embazadora_1)
+    if ((inputs & (1 << Pin_Descarte_1)) >> Pin_Descarte_1)
     {
         // aplico filtro para estar seguro de que se detecto un objeto
         // Voy a neaglo para generar logica Negativa por que este sensor es así
-        actualEstado_Sensor_embazadora_1 = logica_embazadora_1 ? funcionFiltroDeLecturas(Pin_sensor_embazadora_1, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_sensor_embazadora_1, tiempoParaFiltro, thresholdsParaFiltro);
+        actualEstado_Sensor_embazadora_1 = logica_Descarte_1 ? funcionFiltroDeLecturas(Pin_Descarte_1, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_1, tiempoParaFiltro, thresholdsParaFiltro);
     }
     else
     {
         // pongo a verdadero por logica Negativa del sensor
-        logica_embazadora_1 ? (actualEstado_Sensor_embazadora_1 = false) : (actualEstado_Sensor_embazadora_1 = true);
+        logica_Descarte_1 ? (actualEstado_Sensor_embazadora_1 = false) : (actualEstado_Sensor_embazadora_1 = true);
     }
-    if ((inputs & (1 << Pin_sensor_embazadora_2)) >> Pin_sensor_embazadora_2)
+    if ((inputs & (1 << Pin_Descarte_2)) >> Pin_Descarte_2)
     {
         // aplico filtro para estar seguro de que se detecto un objeto
-        actualEstado_Sensor_embazadora_2 = logica_embazadora_2 ? funcionFiltroDeLecturas(Pin_sensor_embazadora_2, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_sensor_embazadora_2, tiempoParaFiltro, thresholdsParaFiltro);
+        actualEstado_Sensor_embazadora_2 = logica_Descarte_2 ? funcionFiltroDeLecturas(Pin_Descarte_2, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_2, tiempoParaFiltro, thresholdsParaFiltro);
     }
     else
     {
-        logica_embazadora_2 ? actualEstado_Sensor_embazadora_2 = false : actualEstado_Sensor_embazadora_2 = true;
+        logica_Descarte_2 ? actualEstado_Sensor_embazadora_2 = false : actualEstado_Sensor_embazadora_2 = true;
     }
     if ((inputs & (1 << Pin_sensor_transporte_1)) >> Pin_sensor_transporte_1)
     {
@@ -207,8 +207,8 @@ void readAllInputs()
 
 {
     uint32_t inputs = digital_inputs.readAll();
-    actualEstado_Sensor_embazadora_1 = (inputs & (1 << Pin_sensor_embazadora_1)) >> Pin_sensor_embazadora_1;
-    actualEstado_Sensor_embazadora_2 = (inputs & (1 << Pin_sensor_embazadora_2)) >> Pin_sensor_embazadora_2;
+    actualEstado_Sensor_embazadora_1 = (inputs & (1 << Pin_Descarte_1)) >> Pin_Descarte_1;
+    actualEstado_Sensor_embazadora_2 = (inputs & (1 << Pin_Descarte_2)) >> Pin_Descarte_2;
     actualEstado_Sensor_transporte_1 = (inputs & (1 << Pin_sensor_transporte_1)) >> Pin_sensor_transporte_1;
     actualEstado_Sensor_transporte_2 = (inputs & (1 << Pin_sensor_transporte_2)) >> Pin_sensor_transporte_2;
     actualEstado_Sensor_final_transporte_lineal = (inputs & (1 << Pin_Sensor_final_transporte_lineal)) >> Pin_Sensor_final_transporte_lineal;
@@ -239,7 +239,6 @@ void funcionPrintConteoActual()
 }
 void funcionPrintEstadoDeSensores()
 {
-
     Serial.println("Estado sensor descarte primer cajon : " + String(actualEstado_Sensor_embazadora_1));
     Serial.println("Estado sensor descarte estuchado : " + String(actualEstado_Sensor_embazadora_2));
     Serial.println("Estado sensor balanza In: " + String(actualEstado_Sensor_transporte_1));
@@ -534,7 +533,6 @@ void parseJsonData(String data, bool enablePrint = true)
         Serial.println();
     }
 }
-
 String funcionRequestTosend(char *serverToSend, String headerToSend, String get_post, String dataToSend)
 {
     String request;
@@ -1469,63 +1467,6 @@ String funcionObtenerUnixTimeInterno()
     return String(ulUnixTime);
 }
 
-/*
-    WiFiClient client;
-    char server[] = "www.google.com";
-    if (client.connect(serverTime, 80))
-    {
-
-        Serial.println("connected to server");
-
-        // Make a HTTP request:
-        String request = funcionRequestTosend(serverTime, requestToTime, "GET ", "");
-
-        client.println(request);
-
-        String request1 = "POST /shards?multiple=true  HTTP/1.1\r\n";
-        request1 += "Host: www.google.com\r\n";
-        request1 += "Connection: close\r\n";
-        request1 += "Host: www.google.com\r\n";
-        request1 += "Connection: close\r\n";
-        client.println(request1);
-*/
-
-/*
-
-
-                         User -
-            Agent : arduino - ethernet Content - Type : text / plain Connection : close Content - Length : 153 [{"deviceId" : "APISAMAN", "inputNumber" : 1, "eventTime" : "1700687840", "signal" : 2}, {"deviceId" : "APISAMAN", "inputNumber" : 2, "eventTime" : "1700687840", "signal" : 0}] Received 1 bytes :
-
-            client.println("GET /search?q=arduino HTTP/1.1");
-
-        client.println("Host: www.google.com");
-
-        client.println("Connection: close");
-        * /
-    }
-
-    delay(2000);
-    while (client.available())
-    {
-
-        char c = client.read();
-
-        Serial.write(c);
-    }
-
-    // if the server's disconnected, stop the client:
-    if (!client.connected())
-    {
-
-        Serial.println();
-
-        Serial.println("disconnecting from server.");
-
-        client.stop();
-
-        // do nothing forevermore:
-    }
-}*/
 /*Esta funcion genera un keepAlive del dispocitivo para saber que esta funcionando*/
 void funcionKeepAlive()
 {
