@@ -67,12 +67,9 @@ void funcionActualizarEstadoDeSensoresAnterior()
 
 void funcionPrintListoAenviarData()
 {
-    Serial.println("Estado del contador listo a enviar - Embazadora 1 : " + String(listoEnviar_contador_embazadora_1));
-    Serial.println("Estado del contador listo a enviar - Embazadora 2 : " + String(listoEnviar_contador_embazadora_2));
-    Serial.println("Estado del contador listo a enviar - descarte embazado : " + String(listoEnviar_contador_descarte_embazado));
-    Serial.println("Estado del contador listo a enviar - producto bueno: " + String(previoEnvio_contador_producto_bueno));
-    Serial.println("Estado del contador listo a enviar - producto total enviado: " + String(listoEnviar_contador_producto_total));
-    Serial.println("Estado del contador listo a enviar - ACARREO: " + String(AcarreoEtiquetado));
+    Serial.println("Estado del contador listo a enviar - Producto bueno : " + String(listoEnviar_contador_producto_bueno_por_batch));
+    Serial.println("Estado del contador listo a enviar - Descarte : " + String(listoEnviar_contador_descarte_por_batch));
+    Serial.println("Estado del contador listo a enviar - Total de producto: " + String(listoEnviar_contador_producto_total));
     Serial.println();
 }
 /*
@@ -93,11 +90,9 @@ Esta funcion permite actualizar el valor de los contadores de previo a enviar a 
 */
 void funcionActualizarPrevioEnvioToListoAEnviar()
 {
-    listoEnviar_contador_producto_bueno = previoEnvio_contador_producto_bueno;
-    listoEnviar_contador_embazadora_1 = previoEnvio_contador_embazadora_1;
-    listoEnviar_contador_embazadora_2 = previoEnvio_contador_embazadora_2;
-    listoEnviar_contador_descarte_embazado = previoEnvio_contador_descarte_embazado;
-    listoEnviar_contador_producto_total = listoEnviar_contador_producto_bueno + listoEnviar_contador_descarte_embazado;
+    listoEnviar_contador_producto_bueno_por_batch = previoEnvio_contador_producto_bueno_por_batch;
+    listoEnviar_contador_descarte_por_batch = previoEnvio_contador_descarte_por_batch;
+    listoEnviar_contador_producto_total = listoEnviar_contador_producto_bueno_por_batch + listoEnviar_contador_descarte_por_batch;
     if (keyImprimirContadorListoEnviar)
     {
         funcionPrintListoAenviarData();
@@ -378,8 +373,7 @@ void conteo_de_Productos_dentro_del_batch() // Finished
     return;
 }
 
-void conteo_de_producto_dentro_batch(){
-    actual_contador_descarte_en_un_paso} String dataExtraction(String response)
+String dataExtraction(String response)
 {
 
     const String clTag = "Content-Length: ";
@@ -653,8 +647,6 @@ void funcionConnectAndSendSocketSSL(char *servidor, int port, String tipoDeSolic
         clientSSl.stop();
     }
 }
-
-// parseJsonData
 String funcionConnectAndSendSocketHTTP(char *servidor, int port, String tipoDeSolicitud, String get_post, String dataToSend)
 {
     WiFiClient client;

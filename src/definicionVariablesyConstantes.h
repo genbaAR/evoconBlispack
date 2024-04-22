@@ -129,31 +129,17 @@ int16_t actual_contador_descarte_por_batch = 0;
 
 // cuando pasa el tiempo especificado se copian los contadores actuales a estos para poder
 // absorver alguna cuenta equivocada que se halla realizado previamente
-/*
-float previoEnvio_contador_embazadora_1 = 0;
-float previoEnvio_contador_embazadora_2 = 0;
-float previoEnvio_contador_descarte_embazado = 0;
-float previoEnvio_contador_producto_bueno = 0;
-*/
-int16_t previoEnvio_contador_descarte_en_un_paso = 0;
+
 int16_t previoEnvio_contador_producto_bueno_por_batch = 0;
 int16_t previoEnvio_contador_descarte_por_batch = 0;
 
 // cuando pasa el tiempo especificado se copian los contadores previoEnvio a estos para poder
 // ser enviados al servidor
-/*
-float listoEnviar_contador_embazadora_1 = 0;
-float listoEnviar_contador_embazadora_2 = 0;
-float listoEnviar_contador_descarte_embazado = 0;
-float listoEnviar_contador_producto_bueno = 0;
-float listoEnviar_contador_producto_total = 0;
-*/
-int16_t listoEnviar_contador_producto_bueno_durante_un_paso = 0;
-int16_t listoEnviar_contador_descarte_en_un_paso = 0;
-int16_t listoEnviar_contador_Descarte_Manual = 0;
+
 int16_t listoEnviar_contador_producto_bueno_por_batch = 0;
 int16_t listoEnviar_contador_descarte_por_batch = 0;
 int16_t listoEnviar_contador_producto_total = 0;
+
 /*
 Estos contadores lo usaremos como ayuda para poder visualizar todos los paquetes enviados
 Al enviar los datos se sumara el el dato enviado a este contador y se reiniciaran haciendo uso
