@@ -78,9 +78,6 @@ para eliminar cualquier mala inicializacion de los mismos
 */
 void resetListoAEnviar()
 {
-    listoEnviar_contador_producto_bueno_durante_un_paso = 0;
-    listoEnviar_contador_descarte_en_un_paso = 0;
-    listoEnviar_contador_Descarte_Manual = 0;
     listoEnviar_contador_producto_bueno_por_batch = 0;
     listoEnviar_contador_descarte_por_batch = 0;
     listoEnviar_contador_producto_total = 0; // evocon precisa el numero total de lo que se produjo durante ese periodo de tiempo
@@ -233,60 +230,46 @@ void funcionActualizarEstadoDeSensoresActual(uint32_t dataIn)
         }
     }
 }
-/*
-This function is not used
-*/
-void readAllInputs()
 
-{
-    uint32_t inputs = digital_inputs.readAll();
-    actualEstado_Sensor_embazadora_1 = (inputs & (1 << Pin_Descarte_1)) >> Pin_Descarte_1;
-    actualEstado_Sensor_embazadora_2 = (inputs & (1 << Pin_Descarte_2)) >> Pin_Descarte_2;
-    actualEstado_Sensor_transporte_1 = (inputs & (1 << Pin_sensor_transporte_1)) >> Pin_sensor_transporte_1;
-    actualEstado_Sensor_transporte_2 = (inputs & (1 << Pin_sensor_transporte_2)) >> Pin_sensor_transporte_2;
-    actualEstado_Sensor_final_transporte_lineal = (inputs & (1 << Pin_Sensor_final_transporte_lineal)) >> Pin_Sensor_final_transporte_lineal;
-    actualEstado_Sensor_transporte_3 = (inputs & (1 << Pin_sensor_transporte_3)) >> Pin_sensor_transporte_3;
-}
 /*
 Function to print the actual status of the previoEnvio variabl
 */
 void funcionPrintPrevioAenviarData()
 {
-    Serial.println("Estado del contador previo a enviar - Embazadora 1 : " + String(previoEnvio_contador_embazadora_1));
-    Serial.println("Estado del contador previo a enviar - Embazadora 2 : " + String(previoEnvio_contador_embazadora_2));
-    Serial.println("Estado del contador previo a enviar - descarte Embazado : " + String(previoEnvio_contador_descarte_embazado));
-    Serial.println("Estado del contador previo a enviar - producto bueno: " + String(previoEnvio_contador_producto_bueno));
+    printLine();
+    Serial.println("Estado del contador previo a enviar - Descarte por lote: " + String(previoEnvio_contador_descarte_por_batch));
+    Serial.println("Estado del contador previo a enviar - Prodcuto bueno por lote: " + String(previoEnvio_contador_producto_bueno_por_batch));
+    printLine();
 }
 void funcionPrintConteoActual()
 {
-    Serial.println("Estado del contador Fin de linea      \t: " + String(actual_contador_fin_linea));
-    Serial.println("Estado del contador Producto bueno    \t: " + String(actual_contador_producto_bueno));
-    Serial.println("Estado del contador descarte embazado \t: " + String(actual_contador_descarte_embazado));
-    Serial.println("Estado del contador Embazadora 1      \t: " + String(actual_contador_embazadora_1));
-    Serial.println("Estado del contador Embazadora 2      \t: " + String(actual_contador_embazadora_2));
-    Serial.println("Estado del contador Transporte 1      \t: " + String(actual_contador_transporte_1));
-    Serial.println("Estado del contador Transporte 2      \t: " + String(actual_contador_transporte_2));
-    Serial.println("Estado del contador Transporte 3      \t: " + String(actual_contador_transporte_3));
-    Serial.print("El acarreo esta en  \t\t\t: ");
-    Serial.println(AcarreoEtiquetado);
+    printLine();
+    Serial.println("Estado del contador producto bueno por paso  : " + String(actual_contador_producto_bueno_durante_un_paso);
+    Serial.println("Estado del contador Producto bueno por batch : " + String(actual_contador_producto_bueno_por_batch));
+    Serial.println("Estado del contador descarte por paso \t: " + String(actual_contador_descarte_en_un_paso));
+    Serial.println("Estado del contador descarte por batch\t: " + String(actual_contador_descarte_por_batch));
+    Serial.println("Estado del contador descarte manual por batch: " + String(actual_contador_Descarte_Manual_por_batch));
+    printLine()
 }
 void funcionPrintEstadoDeSensores()
 {
-    Serial.println("Estado sensor descarte primer cajon : " + String(actualEstado_Sensor_embazadora_1));
-    Serial.println("Estado sensor descarte estuchado : " + String(actualEstado_Sensor_embazadora_2));
-    Serial.println("Estado sensor balanza In: " + String(actualEstado_Sensor_transporte_1));
-    Serial.println("Estado sensor balanza Out: " + String(actualEstado_Sensor_transporte_2));
-    Serial.println("Estado sensor transporte lineal : " + String(actualEstado_Sensor_final_transporte_lineal));
-    Serial.println("Estado sensor balanza activa: " + String(actualEstado_Sensor_transporte_3));
-    Serial.println();
+    printLine();
+    Serial.println("Estado sensor DESCARTE 1: " + String(actualEstado_Descarte_1));
+    Serial.println("Estado sensor DESCARTE 2: " + String(actualEstado_Descarte_2));
+    Serial.println("Estado sensor DESCARTE 3: " + String(actualEstado_Descarte_3));
+    Serial.println("Estado sensor DESCARTE 4: " + String(actualEstado_Descarte_4));
+    Serial.println("Estado sensor DESCARTE 5: " + String(actualEstado_Descarte_5));
+    Serial.println("Estado sensor DESCARTE 6: " + String(actualEstado_Descarte_6));
+    Serial.println("Estado sensor DESCARTE MANUAL: " + String(actualEstado_Descarte_Manual));
+    Serial.println("Estado sensor PASO: " + String(actualEstado_Paso));
+    printLine();
 }
 void upgradeGeneralcounters()
 {
-    contadorGeneral_embazadora_1 = contadorGeneral_embazadora_1 + listoEnviar_contador_embazadora_1;
-    contadorGeneral_embazadora_2 = contadorGeneral_embazadora_2 + listoEnviar_contador_embazadora_2;
-    contadorGeneral_descarte_embazado = contadorGeneral_descarte_embazado + listoEnviar_contador_descarte_embazado;
-    contadorGeneral_producto_bueno = contadorGeneral_producto_bueno + previoEnvio_contador_producto_bueno;
-    contadorGeneral_producto_total = contadorGeneral_producto_total + listoEnviar_contador_producto_total;
+    printLine();
+    contadorGeneral_producto_bueno_por_batch += +listoEnviar_contador_producto_bueno_por_batch;
+    contadorGeneral_descarte_por_batch += listoEnviar_contador_descarte_por_batch;
+    printLine();
 }
 
 /*
