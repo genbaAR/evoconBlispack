@@ -112,88 +112,121 @@ void funcionActualizarEstadoDeSensoresActual(uint32_t dataIn)
     if ((inputs & (1 << Pin_Descarte_1)) >> Pin_Descarte_1)
     {
         // aplico filtro para estar seguro de que se detecto un objeto
-        // Voy a neaglo para generar logica Negativa por que este sensor es así
-        actualEstado_Sensor_embazadora_1 = logica_Descarte_1 ? funcionFiltroDeLecturas(Pin_Descarte_1, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_1, tiempoParaFiltro, thresholdsParaFiltro);
+        actualEstado_Descarte_1 = logica_Descarte_1 ? funcionFiltroDeLecturas(Pin_Descarte_1, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_1, tiempoParaFiltro, thresholdsParaFiltro);
     }
     else
     {
         // pongo a verdadero por logica Negativa del sensor
-        logica_Descarte_1 ? (actualEstado_Sensor_embazadora_1 = false) : (actualEstado_Sensor_embazadora_1 = true);
+        logica_Descarte_1 ? (actualEstado_Descarte_1 = false) : (actualEstado_Descarte_1 = true);
     }
     if ((inputs & (1 << Pin_Descarte_2)) >> Pin_Descarte_2)
     {
         // aplico filtro para estar seguro de que se detecto un objeto
-        actualEstado_Sensor_embazadora_2 = logica_Descarte_2 ? funcionFiltroDeLecturas(Pin_Descarte_2, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_2, tiempoParaFiltro, thresholdsParaFiltro);
+        actualEstado_Descarte_2 = logica_Descarte_2 ? funcionFiltroDeLecturas(Pin_Descarte_2, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_2, tiempoParaFiltro, thresholdsParaFiltro);
     }
     else
     {
-        logica_Descarte_2 ? actualEstado_Sensor_embazadora_2 = false : actualEstado_Sensor_embazadora_2 = true;
+        logica_Descarte_2 ? actualEstado_Descarte_2 = false : actualEstado_Descarte_2 = true;
     }
-    if ((inputs & (1 << Pin_sensor_transporte_1)) >> Pin_sensor_transporte_1)
+    if ((inputs & (1 << Pin_Descarte_3)) >> Pin_Descarte_3)
     {
         // aplico filtro para estar seguro de que se detecto un objeto
-        actualEstado_Sensor_transporte_1 = logica_transporte_1 ? funcionFiltroDeLecturas(Pin_sensor_transporte_1, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_sensor_transporte_1, tiempoParaFiltro, thresholdsParaFiltro);
+        actualEstado_Descarte_3 = logica_transporte_1 ? funcionFiltroDeLecturas(Pin_Descarte_3, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_3, tiempoParaFiltro, thresholdsParaFiltro);
     }
     else
     {
-        logica_transporte_1 ? actualEstado_Sensor_transporte_1 = false : actualEstado_Sensor_transporte_1 = true;
+        logica_transporte_1 ? actualEstado_Descarte_3 = false : actualEstado_Descarte_3 = true;
     }
-    if ((inputs & (1 << Pin_sensor_transporte_2)) >> Pin_sensor_transporte_2)
+    if ((inputs & (1 << Pin_Descarte_4)) >> Pin_Descarte_4)
     {
         // aplico filtro para estar seguro de que se detecto un objeto
-        actualEstado_Sensor_transporte_2 = logica_transporte_2 ? funcionFiltroDeLecturas(Pin_sensor_transporte_2, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_sensor_transporte_2, tiempoParaFiltro, thresholdsParaFiltro);
+        actualEstado_Descarte_4 = logica_transporte_2 ? funcionFiltroDeLecturas(Pin_Descarte_4, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_4, tiempoParaFiltro, thresholdsParaFiltro);
     }
     else
     {
-        logica_transporte_2 ? actualEstado_Sensor_transporte_2 = false : actualEstado_Sensor_transporte_2 = true;
+        logica_transporte_2 ? actualEstado_Descarte_4 = false : actualEstado_Descarte_4 = true;
     }
-    if ((inputs & (1 << Pin_Sensor_final_transporte_lineal)) >> Pin_Sensor_final_transporte_lineal)
+    if ((inputs & (1 << Pin_Descarte_5)) >> Pin_Descarte_5)
     {
         // aplico filtro para estar seguro de que se detecto un objeto
-        actualEstado_Sensor_final_transporte_lineal = logica_final_transporte_lineal ? funcionFiltroDeLecturas(Pin_Sensor_final_transporte_lineal, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Sensor_final_transporte_lineal, tiempoParaFiltro, thresholdsParaFiltro);
+        actualEstado_Descarte_5 = logica_final_transporte_lineal ? funcionFiltroDeLecturas(Pin_Descarte_5, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_5, tiempoParaFiltro, thresholdsParaFiltro);
     }
     else
     {
-        logica_final_transporte_lineal ? actualEstado_Sensor_final_transporte_lineal = false : actualEstado_Sensor_final_transporte_lineal = true;
+        logica_final_transporte_lineal ? actualEstado_Descarte_5 = false : actualEstado_Descarte_5 = true;
     }
-    if (!flagInputControlFromSerial) // Esto permite el control desde el Serial cuando cuando se activa el control por serie se simula como que la balanza esta siempre prendida.
+    if ((inputs & (1 << Pin_Descarte_6)) >> Pin_Descarte_6)
     {
-        if (((inputs & (1 << Pin_sensor_transporte_3)) >> Pin_sensor_transporte_3))
+        // aplico filtro para estar seguro de que se detecto un objeto
+        actualEstado_Descarte_6 = logica_final_transporte_lineal ? funcionFiltroDeLecturas(Pin_Descarte_6, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_6, tiempoParaFiltro, thresholdsParaFiltro);
+    }
+    else
+    {
+        logica_Descarte_6 ? actualEstado_Descarte_6 = false : actualEstado_Descarte_6 = true;
+    }
+    if ((inputs & (1 << Pin_Descarte_Manual)) >> Pin_Descarte_Manual)
+    {
+        // aplico filtro para estar seguro de que se detecto un objeto
+        actualEstado_Descarte_Manual = logica_final_transporte_lineal ? funcionFiltroDeLecturas(Pin_Descarte_Manual, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_Manual, tiempoParaFiltro, thresholdsParaFiltro);
+    }
+    else
+    {
+        logica_Descarte_Manual ? actualEstado_Descarte_Manual = false : actualEstado_Descarte_Manual = true;
+    }
+    if ((inputs & (1 << Pin_paso)) >> Pin_paso)
+    {
+        // aplico filtro para estar seguro de que se detecto un objeto
+        actualEstado_Paso = logica_final_transporte_lineal ? funcionFiltroDeLecturas(Pin_paso, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_paso, tiempoParaFiltro, thresholdsParaFiltro);
+    }
+    else
+    {
+        logica_Paso ? actualEstado_Paso = false : actualEstado_Paso = true;
+    }
+    /*
+        Esto lo apago porque no va a ser necesario en este caso por ser un sistema que no cuenta con un pin
+        que nos indique si esta prendido o no el sistema, sino que nos guiamos por el paso.
+
+        if (!flagInputControlFromSerial) // Esto permite el control desde el Serial cuando se activa el control por serie se simula como que la balanza esta siempre prendida.
         {
-            // aplico filtro para estar seguro de que se detecto un objeto
-            actualEstado_Sensor_transporte_3 = funcionFiltroDeLecturas(Pin_sensor_transporte_3, tiempoParaFiltro, thresholdsParaFiltro);
-            if (actualEstado_Sensor_transporte_3)
+            if (((inputs & (1 << Pin_paso)) >> Pin_paso))
             {
-                bitestadoYalarma = bitestadoYalarma & ~(1 << balanzaApagada);
+                // aplico filtro para estar seguro de que se detecto un objeto
+                actualEstado_Paso = funcionFiltroDeLecturas(Pin_paso, tiempoParaFiltro, thresholdsParaFiltro);
+                if (actualEstado_Paso)
+                {
+                    bitestadoYalarma = bitestadoYalarma & ~(1 << balanzaApagada);
+                }
+                else
+                {
+                    bitestadoYalarma = bitestadoYalarma | (1 << balanzaApagada);
+                }
             }
             else
             {
+                actualEstado_Paso = false;
                 bitestadoYalarma = bitestadoYalarma | (1 << balanzaApagada);
             }
         }
         else
         {
-            actualEstado_Sensor_transporte_3 = false;
-            bitestadoYalarma = bitestadoYalarma | (1 << balanzaApagada);
+            actualEstado_Sensor_transporte_3 = true;
+            bitestadoYalarma = bitestadoYalarma & ~(1 << balanzaApagada);
         }
-    }
-    else
-    {
-        actualEstado_Sensor_transporte_3 = true;
-        bitestadoYalarma = bitestadoYalarma & ~(1 << balanzaApagada);
-    }
+    */
     if (keyImprimirEstadosSensor and keyImprimir)
     {
         if (HAL_GetTick() - timerImprimirInputs > tiempoImprimirInputs)
         {
 
             printLine();
-            Serial.println("Estado Sensor_embazadora_1: " + String(actualEstado_Sensor_embazadora_1));
-            Serial.println("Estado Sensor_embazadora_2 : " + String(actualEstado_Sensor_embazadora_2));
-            Serial.println("Estado Sensor_transporte_1: " + String(actualEstado_Sensor_transporte_1));
-            Serial.println("Estado Sensor_transporte_ " + String(actualEstado_Sensor_transporte_2));
-            Serial.println("Estado Sensor_final_transporte_lineal : " + String(actualEstado_Sensor_final_transporte_lineal));
-            Serial.println("Estado Sensor_transporte_3: " + String(actualEstado_Sensor_transporte_3));
+            Serial.println("Estado Sensor_Descarte 1        : " + String(actualEstado_Descarte_1));
+            Serial.println("Estado Sensor_Descarte 2        : " + String(actualEstado_Descarte_2));
+            Serial.println("Estado Sensor_Descarte 3        : " + String(actualEstado_Descarte_3));
+            Serial.println("Estado Sensor_Descarte 4        : " + String(actualEstado_Descarte_4));
+            Serial.println("Estado Sensor_Descarte 5        : " + String(actualEstado_Descarte_5));
+            Serial.println("Estado Sensor_Descarte 6        : " + String(actualEstado_Descarte_6));
+            Serial.println("Estado Sensor_Descarte manual   : " + String(actualEstado_Descarte_Manual));
+            Serial.println("Estado Sensor_Paso              : " + String(actualEstado_Paso));
             Serial.println();
             timerImprimirInputs = HAL_GetTick();
             printLine();
