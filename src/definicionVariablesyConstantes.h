@@ -170,7 +170,7 @@ int16_t contador_de_pasos_por_batch = 0;
 int16_t contador_de_Batch_por_ciclo = 0;
 //----------------------------------------------------------------Temporizadores----------------------------------------------------------------
 #define ConstanteMillisToSeconds 1000
-#define setpointTiempoEnvio 60 * ConstanteMillisToSeconds;
+#define setpointTiempoEnvio 60 * ConstanteMillisToSeconds
 #define tiempoImprimirInputs 0.3 * ConstanteMillisToSeconds
 unsigned long timerImprimirInputs = 0;
 #define timeoutForSendingData 10 * ConstanteMillisToSeconds
@@ -226,13 +226,14 @@ bool flagFuncionando = false;                    // "This flag indicates when th
 #define CharJSONVew 'f'
 #define charControlPorSerial 'H'
 #define charSerialActivarControlSerial 0
-#define charSerialEmbolzadora_1 1
-#define charSerialEmbolzadora_2 2
-#define charSerialTransporte_1 3
-#define charSerialTransporte_2 4
-#define charSerialFinDeLinea 5
-#define charSerialCajonDos 6
-#define charSerialTransporte_3 7
+#define charSerialDESCARTE_1 1
+#define charSerialDESCARTE_2 2
+#define charSerialDESCARTE_3 3
+#define charSerialDESCARTE_4 4
+#define charSerialDESCARTE_5 5
+#define charSerialDESCARTE_6 6
+#define charSerialDESCARTE_MANUAL 7
+#define charSerial_PASO 8
 #define charSerialFile 'F'
 #define charSerialGeneralCounter 'G'
 #define charSerialGeneralCounterSTART 'G'

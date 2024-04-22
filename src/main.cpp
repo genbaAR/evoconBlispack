@@ -56,7 +56,6 @@ Est hilo se encarga del flujo del programa
 */
 void hiloControl()
 {
-    unsigned long timeoutStop = 0;
     unsigned long tiempo_Envio_batch = HAL_GetTick();
     unsigned long tiempoQuerry = 0;
     unsigned long tiempokeepAlive = 0;
@@ -99,7 +98,7 @@ void hiloControl()
                 tiempoQuerry = HAL_GetTick();
             }
 
-            if (HAL_GetTick() - tiempo_Envio_batch > setpointTiempoEnvio)
+            if ((HAL_GetTick() - tiempo_Envio_batch) >= setpointTiempoEnvio)
             {
                 funcionAlgoritmoDeConteoDeProductos();
                 if (!flagUpdatePrevioDato)
@@ -374,7 +373,7 @@ void hiloEstados()
             Serial.println("\t\t\t\tEl estado del sistema es =" + String(estadoDelSistemaVisual));
             bitestadoYalarmaAnterior = estadoDelSistemaVisual;
         }
-        if (!actualEstado_Sensor_transporte_3)
+        if (!flagFuncionando)
         {
             // Serial.println("\t\t\t\tla balanza esta apagada!!!");
             estadoDelSistemaVisual = balanzaApagada;
@@ -486,49 +485,69 @@ void hiloSerialControl()
                     flagInputControlFromSerial = !flagInputControlFromSerial;
                     Serial.println("El control por serial se encuentra = " + String(flagInputControlFromSerial));
                     break;
-                case charSerialEmbolzadora_1:
+                case charSerialDESCARTE_1:
                     bitGeneratorTocontrol = 0;
-                    bitGeneratorTocontrol = bitGeneratorTocontrol | (1 << Pin_sensor_embazadora_1);
+                    bitGeneratorTocontrol = bitGeneratorTocontrol | (1 << Pin_Descarte_1);
                     funcionActualizarEstadoDeSensoresActual(bitGeneratorTocontrol);
-                    Serial.println("****************Se a creado un paquete de Embolzadora 1****************" + String(bitGeneratorTocontrol));
+                    Serial.println("****************Se a creado un paquete en DESCARTE 1****************" + String(bitGeneratorTocontrol));
                     ThisThread::sleep_for(timeTosleepSerialControl);
                     funcionActualizarEstadoDeSensoresActual(0);
                     break;
-                case charSerialEmbolzadora_2:
+                case charSerialDESCARTE_2:
                     bitGeneratorTocontrol = 0;
-                    bitGeneratorTocontrol = bitGeneratorTocontrol | (1 << Pin_sensor_embazadora_2);
-                    Serial.println("****************Se a creado un paquete de Embolzadora 2****************" + String(bitGeneratorTocontrol));
-                    funcionActualizarEstadoDeSensoresActual(bitGeneratorTocontrol);
-                    ThisThread::sleep_for(timeTosleepSerialControl);
-                    funcionActualizarEstadoDeSensoresActual(0);
-                    break;
-                case charSerialTransporte_1:
-                    bitGeneratorTocontrol = 0;
-                    bitGeneratorTocontrol = bitGeneratorTocontrol | (1 << Pin_sensor_transporte_1);
-                    funcionActualizarEstadoDeSensoresActual(bitGeneratorTocontrol);
-                    Serial.println("**************** Se ha prendido el transporte 1 ****************" + String(bitGeneratorTocontrol));
-                    ThisThread::sleep_for(timeTosleepSerialControl);
-                    funcionActualizarEstadoDeSensoresActual(0);
-                    break;
-                case charSerialTransporte_2:
-                    bitGeneratorTocontrol = 0;
-                    bitGeneratorTocontrol = bitGeneratorTocontrol | (1 << Pin_sensor_transporte_2);
-                    Serial.println("****************Se ha prendido el transporte 2 ****************" + String(bitGeneratorTocontrol));
+                    bitGeneratorTocontrol = bitGeneratorTocontrol | (1 << Pin_Descarte_2);
+                    Serial.println("****************Se a creado un paquete en Descarte 2****************" + String(bitGeneratorTocontrol));
                     funcionActualizarEstadoDeSensoresActual(bitGeneratorTocontrol);
                     ThisThread::sleep_for(timeTosleepSerialControl);
                     funcionActualizarEstadoDeSensoresActual(0);
                     break;
-                case charSerialFinDeLinea:
+                case charSerialDESCARTE_3:
                     bitGeneratorTocontrol = 0;
-                    bitGeneratorTocontrol = bitGeneratorTocontrol | (1 << Pin_Sensor_final_transporte_lineal);
+                    bitGeneratorTocontrol = bitGeneratorTocontrol | (1 << Pin_Descarte_3);
                     funcionActualizarEstadoDeSensoresActual(bitGeneratorTocontrol);
-                    Serial.println("**************** Fin de Linea ****************" + String(bitGeneratorTocontrol));
+                    Serial.println("**************** Se a creado un paquete en Descarte 3 ****************" + String(bitGeneratorTocontrol));
                     ThisThread::sleep_for(timeTosleepSerialControl);
                     funcionActualizarEstadoDeSensoresActual(0);
                     break;
-                case charSerialTransporte_3:
-                    flagTransportador_3_Manual = !flagTransportador_3_Manual;
-                    Serial.println("**************** La simulación de la balanza ha sido ****** " + String(flagTransportador_3_Manual));
+                case charSerialDESCARTE_4:
+                    bitGeneratorTocontrol = 0;
+                    bitGeneratorTocontrol = bitGeneratorTocontrol | (1 << Pin_Descarte_4);
+                    funcionActualizarEstadoDeSensoresActual(bitGeneratorTocontrol);
+                    Serial.println("****************Se a creado un paquete en DESCARTE 4****************" + String(bitGeneratorTocontrol));
+                    ThisThread::sleep_for(timeTosleepSerialControl);
+                    funcionActualizarEstadoDeSensoresActual(0);
+                    break;
+                case charSerialDESCARTE_5:
+                    bitGeneratorTocontrol = 0;
+                    bitGeneratorTocontrol = bitGeneratorTocontrol | (1 << Pin_Descarte_5);
+                    Serial.println("****************Se a creado un paquete en Descarte 5****************" + String(bitGeneratorTocontrol));
+                    funcionActualizarEstadoDeSensoresActual(bitGeneratorTocontrol);
+                    ThisThread::sleep_for(timeTosleepSerialControl);
+                    funcionActualizarEstadoDeSensoresActual(0);
+                    break;
+                case charSerialDESCARTE_6:
+                    bitGeneratorTocontrol = 0;
+                    bitGeneratorTocontrol = bitGeneratorTocontrol | (1 << Pin_Descarte_6);
+                    funcionActualizarEstadoDeSensoresActual(bitGeneratorTocontrol);
+                    Serial.println("**************** Se a creado un paquete en Descarte 6 ****************" + String(bitGeneratorTocontrol));
+                    ThisThread::sleep_for(timeTosleepSerialControl);
+                    funcionActualizarEstadoDeSensoresActual(0);
+                    break;
+                case charSerialDESCARTE_MANUAL:
+                    bitGeneratorTocontrol = 0;
+                    bitGeneratorTocontrol = bitGeneratorTocontrol | (1 << Pin_Descarte_Manual);
+                    Serial.println("****************Se ha DESCARTADO UN PAQUETE DE MANERA MANUAL ****************" + String(bitGeneratorTocontrol));
+                    funcionActualizarEstadoDeSensoresActual(bitGeneratorTocontrol);
+                    ThisThread::sleep_for(timeTosleepSerialControl);
+                    funcionActualizarEstadoDeSensoresActual(0);
+                    break;
+                case charSerial_PASO:
+                    bitGeneratorTocontrol = 0;
+                    bitGeneratorTocontrol = bitGeneratorTocontrol | (1 << Pin_paso);
+                    funcionActualizarEstadoDeSensoresActual(bitGeneratorTocontrol);
+                    Serial.println("**************** SE CREO UN PASO ****************" + String(bitGeneratorTocontrol));
+                    ThisThread::sleep_for(timeTosleepSerialControl);
+                    funcionActualizarEstadoDeSensoresActual(0);
                     break;
                 default:
                     break;
@@ -665,13 +684,10 @@ void hiloSerialControl()
                 else if (entrada == charSerialGeneralCounterPRINT)
                 {
                     Serial.println("=============================GENERL COUNTER=================================");
-                    Serial.println("Embazadora 1 : " + String(contadorGeneral_embazadora_1));
-                    Serial.println("Embazadora 2 : " + String(contadorGeneral_embazadora_2));
-                    Serial.println("Descarte Embazadora : " + String(contadorGeneral_descarte_embazado));
-                    Serial.println("Producto bueno: " + String(contadorGeneral_producto_bueno));
-                    Serial.println("Producto total: " + String(contadorGeneral_producto_total));
-                    Serial.println("=================================================================================");
-                    Serial.println();
+                    Serial.println("PRODUCTO BUENO : " + String(contadorGeneral_producto_bueno_por_batch));
+                    Serial.println("DESCARTE MANUAL : " + String(contadorGeneral_Descarte_Manual));
+                    Serial.println("DESCARTE TOTAL : " + String(contadorGeneral_descarte_por_batch));
+                    printLine();
                 }
                 else
                 {
@@ -684,32 +700,32 @@ void hiloSerialControl()
                 if (entrada == charSerialCheckProductQuantity_Actual)
                 {
                     Serial.print("The actual quantity per batch is ");
-                    Serial.println(multiplicador_de_producto_X_embazado);
+                    Serial.println(producto_por_paso);
                 }
                 else if (entrada == charSerialCheckProductQuantity_New)
                 {
-                    // multiplicador_de_producto_X_embazado
+                    // producto_por_paso
                     String dt = getNewQuantityBatch(0);
                     Serial.print("Api evocon con seguridad ");
                     Serial.println(dt);
                 }
                 else if (entrada == '2')
                 {
-                    // multiplicador_de_producto_X_embazado
+                    // producto_por_paso
                     String dt = getNewQuantityBatch(1);
                     Serial.print("Api evocon sin seguridad ");
                     Serial.println(dt);
                 }
                 else if (entrada == '3')
                 {
-                    // multiplicador_de_producto_X_embazado
+                    // producto_por_paso
                     String dt = getNewQuantityBatch(2);
                     Serial.print("Api pipedream con segurida");
                     Serial.println(dt);
                 }
                 else if (entrada == '4')
                 {
-                    // multiplicador_de_producto_X_embazado
+                    // producto_por_paso
                     String dt = getNewQuantityBatch(3);
                     Serial.print("Api pipedream sin segurida");
                     Serial.println(dt);

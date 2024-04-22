@@ -244,12 +244,12 @@ void funcionPrintPrevioAenviarData()
 void funcionPrintConteoActual()
 {
     printLine();
-    Serial.println("Estado del contador producto bueno por paso  : " + String(actual_contador_producto_bueno_durante_un_paso);
+    Serial.println("Estado del contador producto bueno por paso  : " + String(actual_contador_producto_bueno_durante_un_paso));
     Serial.println("Estado del contador Producto bueno por batch : " + String(actual_contador_producto_bueno_por_batch));
     Serial.println("Estado del contador descarte por paso \t: " + String(actual_contador_descarte_en_un_paso));
     Serial.println("Estado del contador descarte por batch\t: " + String(actual_contador_descarte_por_batch));
     Serial.println("Estado del contador descarte manual por batch: " + String(actual_contador_Descarte_Manual_por_batch));
-    printLine()
+    printLine();
 }
 void funcionPrintEstadoDeSensores()
 {
@@ -409,33 +409,16 @@ String funcionJsonCreator(String diviceIdx, int inputNumberx[], String epochTime
 {
 
     JSONVar jsonArray;
-    /*
-    El problema se da porque Erki para solucionar el tema rapido, creo dos multiplicadores
-    El que va con el id 1 se multiplica por 0,1 esto anula la multiplicacion x 10 que se hace si se selecciona
-    el producto x 10
-    Y el que va con id 3 se multiplica por 0,05 esto anula la multiplicacion x 20 que se hace si se selecciona
-    el producto x 20
-    */
-    if (multiplicador_de_producto_X_embazado > 10)
-    {
-        jsonArray[0]["deviceId"] = diviceIdx;
-        jsonArray[0]["inputNumber"] = inputNumberx[2];
-        jsonArray[0]["eventTime"] = epochTimex;
-        jsonArray[0]["signal"] = listoEnviar_contador_producto_total;
-    }
-    else
-    {
 
-        jsonArray[0]["deviceId"] = diviceIdx;
-        jsonArray[0]["inputNumber"] = inputNumberx[0];
-        jsonArray[0]["eventTime"] = epochTimex;
-        jsonArray[0]["signal"] = listoEnviar_contador_producto_total;
-    }
+    jsonArray[0]["deviceId"] = diviceIdx;
+    jsonArray[0]["inputNumber"] = inputNumberx[0];
+    jsonArray[0]["eventTime"] = epochTimex;
+    jsonArray[0]["signal"] = listoEnviar_contador_producto_total;
 
     jsonArray[1]["deviceId"] = diviceIdx;
     jsonArray[1]["inputNumber"] = inputNumberx[1];
     jsonArray[1]["eventTime"] = epochTimex;
-    jsonArray[1]["signal"] = listoEnviar_contador_descarte_embazado;
+    jsonArray[1]["signal"] = listoEnviar_contador_descarte_por_batch;
 
     String jsonString = JSON.stringify(jsonArray);
     if (keyImprimirJSON)
@@ -498,7 +481,7 @@ void parseJsonData(String data, bool enablePrint = true)
         if (myObject.hasOwnProperty("unitQty"))
         {
             flagCheckTheProductQuantityUpdated = true; // update the product quantity
-            multiplicador_de_producto_X_embazado = (int)myObject["unitQty"];
+            producto_por_paso = (int)myObject["unitQty"];
             if (enablePrint)
             {
                 printLine();
@@ -1000,10 +983,7 @@ void funcionEnviarAEvocon()
 }
 void funcionVerificacionNoCero()
 {
-    if (listoEnviar_contador_embazadora_1 != 0 or
-        listoEnviar_contador_embazadora_2 != 0 or
-        listoEnviar_contador_descarte_embazado != 0 or
-        listoEnviar_contador_producto_total != 0)
+    if (listoEnviar_contador_producto_total != 0)
     {
         flagNotAllZero = true;
         if (keyImprimir)
@@ -1020,56 +1000,7 @@ void funcionVerificacionNoCero()
         }
     }
 }
-/*
-Esta funciona actualiza los datos a ser enviados al finalizar
-la jornada, luego de apagarse T3 se da dos minutos y se compara el acarreo con la cantidad de paquetes
-producidos inicialmente detectados por S2 y S1 si S2 +S1 es mayor que el acarreo se produjeron descartes
 
-This function updates the data when the work stops. When T3 is off, we wait for 2 minutes. Later, we add
-S1 and S2 and subtract the rest from the carry to determine the scraps of the production.
-*/
-bool funcionPreperDataAcarreoDescartes()
-{
-    bool send = false;
-    int cuenta = AcarreoEtiquetado + (contadorParaControlAcarreo_embazadora_1 + contadorParaControlAcarreo_embazadora_2);
-    if (cuenta > 0)
-    {
-        /*Se produce que hay más productos descartados que los producidos*/
-        send = true;
-        listoEnviar_contador_producto_total = cuenta;
-        listoEnviar_contador_descarte_embazado = cuenta;
-        if (keyImprimir)
-        {
-            printLine();
-            Serial.println("We are sending data to evocon because, we have scrap in the finish of the process. More scraps");
-            printLine();
-        }
-    }
-    else if (cuenta < 0)
-    {
-        /*Se produce que hay más productos descartados que los producidos*/
-        send = true;
-        listoEnviar_contador_producto_total = -cuenta;
-        listoEnviar_contador_descarte_embazado = 0;
-        if (keyImprimir)
-        {
-            printLine();
-            Serial.println("We are sending data to evocon because, we have scrap in the finish of the process, More Acarreo");
-            printLine();
-        }
-    }
-    else
-    {
-        if (keyImprimir)
-        {
-            printLine();
-            Serial.println("We don't send data to evocon because, don't have scrap in the finish of the process");
-            printLine();
-        }
-    }
-    AcarreoEtiquetado = 0; // reseteo el acarro al finalizar este tiempo así no se suma al total
-    return send;
-}
 void readCharsFromFile(const char *path)
 {
     Serial.print("readCharsFromFile: ");
@@ -1382,7 +1313,7 @@ String getNewQuantityBatch(int query)
 
         printLine();
         Serial.print("El multiplicador es ahora = ");
-        Serial.println(multiplicador_de_producto_X_embazado);
+        Serial.println(producto_por_paso);
         printLine();
     }
     flagCheckTheProductQuantity = true;
