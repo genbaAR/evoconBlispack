@@ -185,7 +185,6 @@ float thresholdsParaFiltro = 0.65;
 #define tiempoImprimirInputs 0.3 * ConstanteMillisToSeconds
 unsigned long timerImprimirInputs = 0;
 #define timeoutForSendingData 10 * ConstanteMillisToSeconds
-unsigned long timerToprube = 0;
 #define timeTosleepSerialControl 50ms
 unsigned long timerToprintActualCounter = 0;
 #define timeToprintActualCounter 0.5 * ConstanteMillisToSeconds
@@ -201,13 +200,10 @@ bool keyImprimirJSON = false;
 bool keyImprimirTestDescarte = false;
 bool keyImprimirEstadosSensor = false;
 bool keyImprimirContadorListoEnviar = true;
-bool keyTiempoFinalizadoDeContar = false;
 bool keyImprimirMac = false;
 bool keyImprimirSocketData = true;
 bool keyImprimirKeepAlive = true;
-bool flagDescarteEtiquetado = false;
 bool flagDescarteBalanza = false;
-bool flagProductoBueno = false;
 bool flagEnviarAevocon = false;
 bool flagEnvioRealizadoAEvocon = false;
 bool flagNotAllZero = false;

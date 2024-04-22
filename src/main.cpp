@@ -56,7 +56,6 @@ Est hilo se encarga del flujo del programa
 */
 void hiloControl()
 {
-    // Serial.println("HiloControl ");
     unsigned long timeoutStop = 0;
     unsigned long tiempoEnvio = HAL_GetTick();
     unsigned long tiempoQuerry = 0;
