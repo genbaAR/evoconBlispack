@@ -729,7 +729,6 @@ String funcionConnectAndSendSocketHTTP(char *servidor, int port, String tipoDeSo
     // Close the socket to return its memory and bring down the network interface
     return "";
 }
-
 String funcionConnectAndSendSocket(EthernetInterface &net, SocketAddress &addr, char *servidor, int port, String tipoDeSolicitud, String get_post, String dataToSend)
 {
     TCPSocket socket; // TCPSocket socket; // If we dont want to connect encrypt the socket
@@ -1387,6 +1386,27 @@ String funcionObtenerUnixTimeInterno()
     }
     unsigned long ulUnixTime = static_cast<unsigned long>(rtc_controller.getEpoch());
 
+    return String(ulUnixTime);
+}
+/*
+Esta funcion permite mandar siempre redondeando el tiempo para que sea un minuto justo
+*/
+String redondeoUnixTime(String data)
+{
+    unsigned long ulUnixTime = data.toInt();
+    unsigned long resto = ulUnixTime % 60;
+    if (resto > 30)
+    {
+        ulUnixTime = ulUnixTime + (60 - resto);
+    }
+    else if (resto == 0)
+    {
+        return String(ulUnixTime);
+    }
+    else
+    {
+        ulUnixTime = ulUnixTime - resto;
+    }
     return String(ulUnixTime);
 }
 

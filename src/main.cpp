@@ -311,6 +311,7 @@ void hiloEvocon()
                     Serial.println("=============El dato es correcto = " + unixTime);
                 }
             }
+            unixTime = redondeoUnixTime(unixTime); // para generar el redondeo del unixTime
 
             String datosJson = funcionJsonCreator(deviceIdx, inputNumberx, unixTime);
             String estadoRecepcion2 = funcionConnectAndSendSocketHTTP(serverToSendData, 80, encabezadoMuchos, "POST ", datosJson);
