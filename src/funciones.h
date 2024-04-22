@@ -353,10 +353,10 @@ void funcionAlgoritmoDeConteoDeProductos()
 }
 /*
 Esta funcion cuenta la cantidad de cambios de franco ascendentes que tenemos
-en todos los sensores, al finalizar el tiempo calucla los datos a ser enviados a evocon de descartes
-y producto ok.
+en todos los sensores. Se calcula conteos de productos en cada paso y se suman al
+conteo por batch, siendo este ultimo reiniciado al enviar a evocon el dato
 */
-void conteo_de_Productos_por_Paso() // Finished
+void conteo_de_Productos_dentro_del_batch() // Finished
 {
 
     if (flagFuncionando)
@@ -366,6 +366,8 @@ void conteo_de_Productos_por_Paso() // Finished
 
             if (actualEstado_Paso and !previoEstado_Paso)
             {
+                actual_contador_producto_bueno_durante_un_paso = 0; // Initialize the variable 'actual_contador_producto_bueno_durante_un_paso' to 0.
+                contador_de_pasos_por_batch += 1;
 
                 if (actualEstado_Descarte_1 and !previoEstado_Descarte_1)
                 {
@@ -398,7 +400,7 @@ void conteo_de_Productos_por_Paso() // Finished
                     actual_contador_producto_bueno_durante_un_paso += 1;
                 }
 
-                actual_contador_descarte_en_un_paso = producto_por_paso - actual_contador_producto_bueno_durante_un_paso;
+                actual_contador_descarte_en_un_paso += producto_por_paso - actual_contador_producto_bueno_durante_un_paso;
             }
             if (actualEstado_Descarte_Manual and !previoEstado_Descarte_Manual)
             {
@@ -411,7 +413,9 @@ void conteo_de_Productos_por_Paso() // Finished
 
     return;
 }
-String dataExtraction(String response)
+
+void conteo_de_producto_dentro_batch(){
+    actual_contador_descarte_en_un_paso} String dataExtraction(String response)
 {
 
     const String clTag = "Content-Length: ";

@@ -46,7 +46,7 @@ void hilo_Para_Lectura_Pin_IN()
         {
             funcionActualizarEstadoDeSensoresActual(digital_inputs.readAll());
         }
-        conteo_de_Productos_por_Paso();
+        conteo_de_Productos_dentro_del_batch();
         funcionActualizarEstadoDeSensoresAnterior();
         ThisThread::sleep_for(10ms); // Wait for 10 miliseconds
     }
@@ -57,10 +57,10 @@ Est hilo se encarga del flujo del programa
 void hiloControl()
 {
     unsigned long timeoutStop = 0;
-    unsigned long tiempoEnvio = HAL_GetTick();
+    unsigned long tiempo_Envio_batch = HAL_GetTick();
     unsigned long tiempoQuerry = 0;
     unsigned long tiempokeepAlive = 0;
-    u_int16_t timeOut = setpointTiempoEnvio - timeoutForSendingData;
+    // u_int16_t timeOut_batch = setpointTiempoEnvio - timeoutForSendingData;
     for (;;)
     { // Repeat forever
 
@@ -99,33 +99,21 @@ void hiloControl()
                 tiempoQuerry = HAL_GetTick();
             }
 
-            if (HAL_GetTick() - tiempoEnvio > timeOut)
+            if (HAL_GetTick() - tiempo_Envio_batch > setpointTiempoEnvio)
             {
                 funcionAlgoritmoDeConteoDeProductos();
                 if (!flagUpdatePrevioDato)
                 {
                     funcionActualizarPrevioEnvioToListoAEnviar();
                     funcionVerificacionNoCero();
-                    if (flagFirstEmpaquetadoPacage)
+
+                    if (flagNotAllZero or flagEnviarSiempre)
                     {
-                        /*
-                        Hasta que no pase un paquete por S3 incrementaremos los contadores de la
-                        de paquetes producidos por las empaquetadoras S1 y S2, al parar T3 estos seran
-                        comparados con el acarreo para igualar marcar correctamente los descartes
-                        y paquetes prducidos
-                        */
-                        funcionActualizarContadorParaCompararConAcarreo();
-                    }
-                    else
-                    {
-                        if (flagNotAllZero or flagEnviarSiempre)
-                        {
-                            funcionEnviarAEvocon();
-                            funcionPrintListoAenviarData();
-                        }
+                        funcionEnviarAEvocon();
+                        funcionPrintListoAenviarData();
                     }
                 }
-                tiempoEnvio = HAL_GetTick();
+                tiempo_Envio_batch = HAL_GetTick();
             }
         }
         /*

@@ -181,7 +181,9 @@ int producto_por_paso = 6; // This value indicates the maximum product in a batc
 // Constantes de funcionamiento
 uint16_t tiempoParaFiltro = 5; // 20 ms para asegurarnos de que fue presionado correctametne
 float thresholdsParaFiltro = 0.65;
-
+// Variables para control
+int16_t contador_de_pasos_por_batch = 0;
+int16_t contador_de_Batch_por_ciclo = 0;
 //----------------------------------------------------------------Temporizadores----------------------------------------------------------------
 #define ConstanteMillisToSeconds 1000
 #define setpointTiempoEnvio 60 * ConstanteMillisToSeconds;
