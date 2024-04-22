@@ -64,34 +64,42 @@ void hiloControl()
     for (;;)
     { // Repeat forever
 
-        if (actualEstado_Sensor_transporte_3 or flagTransportador_3_Manual)
+        funcionActivarKeepAlive(&tiempokeepAlive); // This function is called to inform Evocon that It's alive.
+        /*
+        In this step, we detect the first
+        activation of the 'Paso' sensor and prepare everything
+        to initiate the process of counting and sending data.
+        */
+        if (actualEstado_Paso && !flagFuncionando)
         {
-            flagWasRuningButStop = false;
-            flagStartTemporizationStop = false;
-            funcionActivarKeepAlive(&tiempokeepAlive);
+            resetListoAEnviar();
+            getNewQuantityBatch(0); // Update the quantity of products per batch
+            flagFuncionando = true;
+            tiempoQuerry = HAL_GetTick();
+            time_system_active_duration = HAL_GetTick();
+        }
 
-            if (!flagfirstStart and (HAL_GetTick() - tiempoQuerry > timeToQuerryQuantityOfPackages))
+        if (flagFuncionando)
+        {
+            if (actualEstado_Paso)
             {
-                /*
-                Here we will check wich is the quantity of products/package
-                In the variable timeToQuerryQuantityOfPackages we set the time
-                In this moment i put 10 minutes.
-                */
+                time_system_active_duration = HAL_GetTick(); // Update the time of the active system
+            }
+
+            /*
+            Here we will check wich is the quantity of products/package
+            In the variable timeToQuerryQuantityOfPackages we set the time
+            In this moment i put 10 minutes.
+            */
+            if (HAL_GetTick() - tiempoQuerry > timeToQuerryQuantityOfPackages)
+            {
                 getNewQuantityBatch(0); // Update the quantity of products per batch
 
                 tiempoQuerry = HAL_GetTick();
             }
+
             if (HAL_GetTick() - tiempoEnvio > timeOut)
             {
-                if (flagfirstStart)
-                {
-                    // Si es la primera vez que inicio el sistema y la logica de algun sensor es invertida
-                    // reseteo los contadores para eliminar posible error de conteo
-                    resetListoAEnviar();
-                    getNewQuantityBatch(0); // Update the quantity of products per batch
-                    flagfirstStart = false;
-                    tiempoQuerry = HAL_GetTick();
-                }
                 funcionAlgoritmoDeConteoDeProductos();
                 if (!flagUpdatePrevioDato)
                 {
@@ -119,35 +127,15 @@ void hiloControl()
                 tiempoEnvio = HAL_GetTick();
             }
         }
-        else
+        /*
+        When the elapsed time exceeds the 'timeToStop' because the variable
+        'time_system_active_duration' was not updated, set the 'flagFuncionando' to false.
+        */
+        if (flagFuncionando and (HAL_GetTick() - time_system_active_duration > timeToStop))
         {
-            if (!flagWasRuningButStop)
-            {
-                if (keyImprimir)
-                {
-                    printLine();
-                    Serial.println("Se ha parado el T1- esperaremos 2 minutos antes de enviar los datos");
-                    printLine();
-                }
-                flagWasRuningButStop = true;
-                flagStartTemporizationStop = true;
-                timeoutStop = HAL_GetTick();
-                tiempokeepAlive = HAL_GetTick();
-            }
-
-            funcionActivarKeepAlive(&tiempokeepAlive);
+            flagFuncionando = false;
         }
-        if (flagStartTemporizationStop and (HAL_GetTick() - timeoutStop > timeToStop))
-        {
-            // This part is for send to evocon the diference between count of packages and Acarreo
-            bool send = funcionPreperDataAcarreoDescartes();
-            if (send)
-            {
-                funcionEnviarAEvocon();
-            }
-            flagStartTemporizationStop = false;
-        }
-        ThisThread::sleep_for(100ms); //
+        ThisThread::sleep_for(100ms);
     }
 }
 

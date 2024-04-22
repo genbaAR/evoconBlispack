@@ -78,9 +78,11 @@ para eliminar cualquier mala inicializacion de los mismos
 */
 void resetListoAEnviar()
 {
-    listoEnviar_contador_embazadora_1 = 0;
-    listoEnviar_contador_embazadora_2 = 0;
-    listoEnviar_contador_descarte_embazado = 0;
+    listoEnviar_contador_producto_bueno_durante_un_paso = 0;
+    listoEnviar_contador_descarte_en_un_paso = 0;
+    listoEnviar_contador_Descarte_Manual = 0;
+    listoEnviar_contador_producto_bueno_por_batch = 0;
+    listoEnviar_contador_descarte_por_batch = 0;
     listoEnviar_contador_producto_total = 0; // evocon precisa el numero total de lo que se produjo durante ese periodo de tiempo
 }
 /*
@@ -1371,11 +1373,9 @@ void testFileIO(const char *path)
 
 void resetGeneralcounters()
 {
-    contadorGeneral_embazadora_1 = 0;
-    contadorGeneral_embazadora_2 = 0;
-    contadorGeneral_descarte_embazado = 0;
-    contadorGeneral_producto_bueno = 0;
-    contadorGeneral_producto_total = 0;
+    contadorGeneral_Descarte_Manual = 0;
+    contadorGeneral_producto_bueno_por_batch = 0;
+    contadorGeneral_descarte_por_batch = 0;
 }
 String getNewQuantityBatch(int query)
 {

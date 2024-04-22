@@ -155,6 +155,7 @@ int16_t listoEnviar_contador_descarte_en_un_paso = 0;
 int16_t listoEnviar_contador_Descarte_Manual = 0;
 int16_t listoEnviar_contador_producto_bueno_por_batch = 0;
 int16_t listoEnviar_contador_descarte_por_batch = 0;
+int16_t listoEnviar_contador_producto_total = 0;
 /*
 Estos contadores lo usaremos como ayuda para poder visualizar todos los paquetes enviados
 Al enviar los datos se sumara el el dato enviado a este contador y se reiniciaran haciendo uso
@@ -187,8 +188,9 @@ unsigned long timerImprimirInputs = 0;
 #define timeoutForSendingData 10 * ConstanteMillisToSeconds
 #define timeTosleepSerialControl 50ms
 unsigned long timerToprintActualCounter = 0;
+unsigned long time_system_active_duration = 0;
 #define timeToprintActualCounter 0.5 * ConstanteMillisToSeconds
-#define timeToStop 250 * ConstanteMillisToSeconds
+#define timeToStop 70 * ConstanteMillisToSeconds
 #define timeToStopReceptionSSl 5 * ConstanteMillisToSeconds
 #define timeToWaitForReceptionSSl 3 * ConstanteMillisToSeconds
 #define timeToQuerryQuantityOfPackages 10 * 60 * ConstanteMillisToSeconds
@@ -223,6 +225,7 @@ bool flagCheckTheProductQuantity = false;        // This flag is used to check t
 bool flagCheckTheProductQuantityUpdated = false; // This flag is updated when the product quantity is recived
 bool flagUnixTimeWasUpdated = false;             // This flag is true when the unix time is updated correctly
 bool flagEncenderRenvioPorError = true;          // This flag is used to eneable re send information if the reques is fail
+bool flagFuncionando = false;                    // "This flag indicates when the system detects the input "Paso" within the last minute before the time finishes. Once the time is up, this flag is set to off."
 //----------------------------------------------------------------Serial----------------------------------------------------------------
 #define CharkeyImprimirEstadosSensor 's'
 #define CHarkeyImprimirSocketData 'd'
@@ -255,7 +258,7 @@ bool flagEncenderRenvioPorError = true;          // This flag is used to eneable
 #define CharkeyImprimirUnixTime 'U'
 #define CharkeyKeepAlive 'K'
 //----------------------------------------------------------------Evocon----------------------------------------------------------------
-int multiplicador_de_producto_X_embazado = 1; // This value is used to calculate the real cuantity of the product
+int multiplicador_de_producto_X_embazado = 6; // This value indicates the maximum product in a batch
 #define numberOfmaximumTests 4
 char serverTime[] = "api.evocon.com";
 char serverToSendData[] = "devices.evocon.com";
