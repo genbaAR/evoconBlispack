@@ -176,6 +176,8 @@ int16_t contadorGeneral_Descarte_Manual = 0;
 int16_t contadorGeneral_producto_bueno_por_batch = 0;
 int16_t contadorGeneral_descarte_por_batch = 0;
 
+int producto_por_paso = 6; // This value indicates the maximum product in a batch
+
 // Constantes de funcionamiento
 uint16_t tiempoParaFiltro = 5; // 20 ms para asegurarnos de que fue presionado correctametne
 float thresholdsParaFiltro = 0.65;
@@ -258,7 +260,8 @@ bool flagFuncionando = false;                    // "This flag indicates when th
 #define CharkeyImprimirUnixTime 'U'
 #define CharkeyKeepAlive 'K'
 //----------------------------------------------------------------Evocon----------------------------------------------------------------
-int multiplicador_de_producto_X_embazado = 6; // This value indicates the maximum product in a batch
+// int multiplicador_de_producto_X_embazado = 6;
+
 #define numberOfmaximumTests 4
 char serverTime[] = "api.evocon.com";
 char serverToSendData[] = "devices.evocon.com";

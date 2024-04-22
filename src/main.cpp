@@ -46,7 +46,7 @@ void hilo_Para_Lectura_Pin_IN()
         {
             funcionActualizarEstadoDeSensoresActual(digital_inputs.readAll());
         }
-        conteoDeProductos();
+        conteo_de_Productos_por_Paso();
         funcionActualizarEstadoDeSensoresAnterior();
         ThisThread::sleep_for(10ms); // Wait for 10 miliseconds
     }
@@ -83,6 +83,7 @@ void hiloControl()
         {
             if (actualEstado_Paso)
             {
+
                 time_system_active_duration = HAL_GetTick(); // Update the time of the active system
             }
 

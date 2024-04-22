@@ -353,41 +353,54 @@ Esta funcion cuenta la cantidad de cambios de franco ascendentes que tenemos
 en todos los sensores, al finalizar el tiempo calucla los datos a ser enviados a evocon de descartes
 y producto ok.
 */
-void conteoDeProductos() // Finished
+void conteo_de_Productos_por_Paso() // Finished
 {
 
-    if (actualEstado_Sensor_transporte_3 or flagTransportador_3_Manual)
+    if (flagFuncionando)
     {
         if (!flagUpdatePrevioDato)
         {
 
-            if (actualEstado_Sensor_final_transporte_lineal and !previoEstado_Sensor_final_transporte_lineal)
+            if (actualEstado_Paso and !previoEstado_Paso)
+            {
+
+                if (actualEstado_Descarte_1 and !previoEstado_Descarte_1)
+                {
+                    // Count the number of actual good production
+                    actual_contador_producto_bueno_durante_un_paso += 1;
+                }
+                if (actualEstado_Descarte_2 and !previoEstado_Descarte_2)
+                {
+                    // Count the number of actual good production
+                    actual_contador_producto_bueno_durante_un_paso += 1;
+                }
+                if (actualEstado_Descarte_3 and !previoEstado_Descarte_3)
+                {
+                    // Count the number of actual good production
+                    actual_contador_producto_bueno_durante_un_paso += 1;
+                }
+                if (actualEstado_Descarte_4 and !previoEstado_Descarte_4)
+                {
+                    // Count the number of actual good production
+                    actual_contador_producto_bueno_durante_un_paso += 1;
+                }
+                if (actualEstado_Descarte_5 and !previoEstado_Descarte_5)
+                {
+                    // Count the number of actual good production
+                    actual_contador_producto_bueno_durante_un_paso += 1;
+                }
+                if (actualEstado_Descarte_6 and !previoEstado_Descarte_6)
+                {
+                    // Count the number of actual good production
+                    actual_contador_producto_bueno_durante_un_paso += 1;
+                }
+
+                actual_contador_descarte_en_un_paso = producto_por_paso - actual_contador_producto_bueno_durante_un_paso;
+            }
+            if (actualEstado_Descarte_Manual and !previoEstado_Descarte_Manual)
             {
                 // Count the number of actual good production
-                actual_contador_fin_linea += 1;
-                if (flagFirstEmpaquetadoPacage)
-                {
-                    flagFirstEmpaquetadoPacage = false;
-                }
-            }
-
-            if (actualEstado_Sensor_transporte_2 && !previoEstado_Sensor_transporte_2)
-            {
-                actual_contador_transporte_2 += 1;
-            }
-
-            if (actualEstado_Sensor_transporte_1 && !previoEstado_Sensor_transporte_1)
-            {
-                actual_contador_transporte_1 += 1;
-            }
-
-            if (actualEstado_Sensor_embazadora_2 && !previoEstado_Sensor_embazadora_2)
-            {
-                actual_contador_embazadora_2 += 1;
-            }
-            if (actualEstado_Sensor_embazadora_1 && !previoEstado_Sensor_embazadora_1)
-            {
-                actual_contador_embazadora_1 += 1;
+                actual_contador_Descarte_Manual += 1;
             }
             return;
         }
