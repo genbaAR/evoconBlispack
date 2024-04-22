@@ -294,11 +294,6 @@ void upgradeGeneralcounters()
     contadorGeneral_producto_total = contadorGeneral_producto_total + listoEnviar_contador_producto_total;
 }
 
-void funcionActualizarContadorParaCompararConAcarreo()
-{
-    contadorParaControlAcarreo_embazadora_1 = contadorParaControlAcarreo_embazadora_1 + listoEnviar_contador_embazadora_1;
-    contadorParaControlAcarreo_embazadora_2 = contadorParaControlAcarreo_embazadora_2 + listoEnviar_contador_embazadora_2;
-}
 /*
 This function is called when we need an actualization of the counters,
 Here we do the actualization with the algorithm of count
@@ -306,49 +301,16 @@ Here we do the actualization with the algorithm of count
 void funcionAlgoritmoDeConteoDeProductos()
 {
     flagUpdatePrevioDato = true;
-    previoEnvio_contador_producto_bueno = actual_contador_fin_linea * multiplicador_de_producto_X_embazado;
-    previoEnvio_contador_descarte_embazado = (actual_contador_embazadora_1 + actual_contador_embazadora_2) - previoEnvio_contador_producto_bueno;
-    previoEnvio_contador_embazadora_2 = actual_contador_embazadora_2;
-    previoEnvio_contador_embazadora_1 = actual_contador_embazadora_1;
+    contador_de_Batch_por_ciclo += 1;
 
-    actual_contador_fin_linea = 0;
-    actual_contador_transporte_1 = 0;
-    actual_contador_descarte_embazado = 0;
-    actual_contador_embazadora_2 = 0;
-    actual_contador_embazadora_1 = 0;
+    previoEnvio_contador_producto_bueno_por_batch = actual_contador_producto_bueno_por_batch - actual_contador_Descarte_Manual_por_batch;
+    previoEnvio_contador_descarte_por_batch = actual_contador_Descarte_Manual_por_batch + actual_contador_descarte_por_batch;
+
+    actual_contador_producto_bueno_por_batch = 0;
+    actual_contador_Descarte_Manual_por_batch = 0;
+    actual_contador_descarte_por_batch = 0;
 
     flagUpdatePrevioDato = false;
-    /* verifico  si los descartes más el acarreo es menor a 0  si esto sucede
-    quiere decir que el acarreo es más grande y debemos descontar los descartes del acarreo
-    De no suceder esto y hay descartes tenemos que tener en cuenta que que el acarreo es 0*/
-    if (previoEnvio_contador_descarte_embazado < 0)
-    {
-        // Se produjo más producto en la enfardadora que el que salió por las envasadoras por lo tanto en algún
-        // momento no se generó descartes que no eran verdad, por este motivo se almacenará en la variable
-        // acarreo esta diferencia para ser descontada en el futuro. El acarreo es un número negativo!
-
-        AcarreoEtiquetado = previoEnvio_contador_descarte_embazado + AcarreoEtiquetado;
-        previoEnvio_contador_descarte_embazado = 0;
-    }
-    else
-    {
-        if (previoEnvio_contador_descarte_embazado + AcarreoEtiquetado < 0)
-        {
-            // Si se da esta condición se envió más descartes de lo que en verdad se produjeron por ende en
-            // la siguiente iteración acomodaremos este valor del acarreo restando al mismo los descartes que
-            // en verdad se produjeron ahora
-            AcarreoEtiquetado = previoEnvio_contador_descarte_embazado + AcarreoEtiquetado;
-            previoEnvio_contador_descarte_embazado = 0;
-        }
-        else
-        {
-            // Si no paso lo anterior tenemos más descartes que el acumulado en el acarreo, por lo tanto
-            // envíamos que se produjeron descartes, si hay acarreo  se los descontaremos para igualar a la
-            // realidad, y pondremos a cero el acarreo.
-            previoEnvio_contador_descarte_embazado = previoEnvio_contador_descarte_embazado + AcarreoEtiquetado;
-            AcarreoEtiquetado = 0;
-        }
-    }
     return;
 }
 /*
@@ -401,11 +363,13 @@ void conteo_de_Productos_dentro_del_batch() // Finished
                 }
 
                 actual_contador_descarte_en_un_paso += producto_por_paso - actual_contador_producto_bueno_durante_un_paso;
+                actual_contador_producto_bueno_por_batch += actual_contador_descarte_en_un_paso;
+                actual_contador_descarte_en_un_paso = 0;
             }
             if (actualEstado_Descarte_Manual and !previoEstado_Descarte_Manual)
             {
                 // Count the number of actual good production
-                actual_contador_Descarte_Manual += 1;
+                actual_contador_Descarte_Manual_por_batch += 1;
             }
             return;
         }

@@ -123,7 +123,7 @@ int AcarreoEtiquetado = 0;
 
 int16_t actual_contador_producto_bueno_durante_un_paso = 0;
 int16_t actual_contador_descarte_en_un_paso = 0;
-int16_t actual_contador_Descarte_Manual = 0;
+int16_t actual_contador_Descarte_Manual_por_batch = 0;
 int16_t actual_contador_producto_bueno_por_batch = 0;
 int16_t actual_contador_descarte_por_batch = 0;
 
@@ -135,9 +135,7 @@ float previoEnvio_contador_embazadora_2 = 0;
 float previoEnvio_contador_descarte_embazado = 0;
 float previoEnvio_contador_producto_bueno = 0;
 */
-int16_t previoEnvio_contador_producto_bueno_durante_un_paso = 0;
 int16_t previoEnvio_contador_descarte_en_un_paso = 0;
-int16_t previoEnvio_contador_Descarte_Manual = 0;
 int16_t previoEnvio_contador_producto_bueno_por_batch = 0;
 int16_t previoEnvio_contador_descarte_por_batch = 0;
 
