@@ -120,15 +120,12 @@ int16_t actual_contador_producto_bueno = 0;
 int16_t actual_contador_fin_linea = 0;
 int AcarreoEtiquetado = 0;
 */
-int16_t actual_contador_Descarte_1 = false;
-int16_t actual_contador_Descarte_2 = false;
-int16_t actual_contador_Descarte_3 = false;
-int16_t actual_contador_Descarte_4 = false;
-int16_t actual_contador_Descarte_5 = false;
-int16_t actual_contador_Descarte_6 = false;
-int16_t actual_contador_Descarte_Manual = false;
-int16_t actual_contador_producto_bueno = 0;
-int16_t actual_contador_descarte_embazado = 0;
+
+int16_t actual_contador_producto_bueno_durante_un_paso = 0;
+int16_t actual_contador_descarte_en_un_paso = 0;
+int16_t actual_contador_Descarte_Manual = 0;
+int16_t actual_contador_producto_bueno_por_batch = 0;
+int16_t actual_contador_descarte_por_batch = 0;
 
 // cuando pasa el tiempo especificado se copian los contadores actuales a estos para poder
 // absorver alguna cuenta equivocada que se halla realizado previamente
@@ -138,8 +135,11 @@ float previoEnvio_contador_embazadora_2 = 0;
 float previoEnvio_contador_descarte_embazado = 0;
 float previoEnvio_contador_producto_bueno = 0;
 */
-float previoEnvio_contador_descarte = 0;
-float previoEnvio_contador_producto_bueno = 0;
+int16_t previoEnvio_contador_producto_bueno_durante_un_paso = 0;
+int16_t previoEnvio_contador_descarte_en_un_paso = 0;
+int16_t previoEnvio_contador_Descarte_Manual = 0;
+int16_t previoEnvio_contador_producto_bueno_por_batch = 0;
+int16_t previoEnvio_contador_descarte_por_batch = 0;
 
 // cuando pasa el tiempo especificado se copian los contadores previoEnvio a estos para poder
 // ser enviados al servidor
@@ -150,8 +150,11 @@ float listoEnviar_contador_descarte_embazado = 0;
 float listoEnviar_contador_producto_bueno = 0;
 float listoEnviar_contador_producto_total = 0;
 */
-float listoEnviar_contador_descarte = 0;
-float listoEnviar_contador_producto_bueno = 0;
+int16_t listoEnviar_contador_producto_bueno_durante_un_paso = 0;
+int16_t listoEnviar_contador_descarte_en_un_paso = 0;
+int16_t listoEnviar_contador_Descarte_Manual = 0;
+int16_t listoEnviar_contador_producto_bueno_por_batch = 0;
+int16_t listoEnviar_contador_descarte_por_batch = 0;
 /*
 Estos contadores lo usaremos como ayuda para poder visualizar todos los paquetes enviados
 Al enviar los datos se sumara el el dato enviado a este contador y se reiniciaran haciendo uso
@@ -168,16 +171,10 @@ int16_t contadorGeneral_producto_bueno = 0;
 int16_t contadorGeneral_producto_total = 0;
 */
 
-int16_t contadorGeneral_descarte = 0;
-int16_t contadorGeneral_producto_bueno = 0;
-int16_t contadorGeneral_producto_total = 0;
+int16_t contadorGeneral_Descarte_Manual = 0;
+int16_t contadorGeneral_producto_bueno_por_batch = 0;
+int16_t contadorGeneral_descarte_por_batch = 0;
 
-/*Estos contadores los usaremos para ajustar los
-productos descartados al finalizar el uso de la maquina
-*/
-
-int16_t contadorParaControlAcarreo_embazadora_1 = 0;
-int16_t contadorParaControlAcarreo_embazadora_2 = 0;
 // Constantes de funcionamiento
 uint16_t tiempoParaFiltro = 5; // 20 ms para asegurarnos de que fue presionado correctametne
 float thresholdsParaFiltro = 0.65;
