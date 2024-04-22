@@ -55,13 +55,16 @@ para poder ver si realmente cambiaron de estado
 */
 void funcionActualizarEstadoDeSensoresAnterior()
 {
-    previoEstado_Sensor_embazadora_1 = actualEstado_Sensor_embazadora_1;
-    previoEstado_Sensor_embazadora_2 = actualEstado_Sensor_embazadora_2;
-    previoEstado_Sensor_transporte_1 = actualEstado_Sensor_transporte_1;
-    previoEstado_Sensor_transporte_2 = actualEstado_Sensor_transporte_2;
-    previoEstado_Sensor_final_transporte_lineal = actualEstado_Sensor_final_transporte_lineal;
-    previoEstado_Sensor_transporte_3 = actualEstado_Sensor_transporte_3;
+    previoEstado_Descarte_1 = actualEstado_Descarte_1;
+    previoEstado_Descarte_2 = actualEstado_Descarte_2;
+    previoEstado_Descarte_3 = actualEstado_Descarte_3;
+    previoEstado_Descarte_4 = actualEstado_Descarte_4;
+    previoEstado_Descarte_5 = actualEstado_Descarte_5;
+    previoEstado_Descarte_6 = actualEstado_Descarte_6;
+    previoEstado_Descarte_Manual = actualEstado_Descarte_Manual;
+    previoEstado_Paso = actualEstado_Paso;
 }
+
 void funcionPrintListoAenviarData()
 {
     Serial.println("Estado del contador listo a enviar - Embazadora 1 : " + String(listoEnviar_contador_embazadora_1));
