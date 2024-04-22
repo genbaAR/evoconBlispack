@@ -38,7 +38,7 @@ Este hilo se encarga de:
   - Contar cantidad de cajas en cada posible descarte
   - Contar las cajas correctas
 */
-void hiloPrincipal()
+void hilo_Para_Lectura_Pin_IN()
 {
     for (;;)
     { // Repeat forever
@@ -795,8 +795,8 @@ void setup()
         Serial.println("Initialization fail!");
     }
     Serial.println("Initialization Done!");
-    t1.start(hiloPrincipal); // Pass func1 to t1 to start executing it as a independant thread
-    t2.start(hiloControl);   // Pass func2 to t2 to start executing it as an independant thread
+    t1.start(hilo_Para_Lectura_Pin_IN); //
+    t2.start(hiloControl);              // Pass func2 to t2 to start executing it as an independant thread
     t3.start(hiloEvocon);
     t3.set_priority(osPriorityAboveNormal);
     t4.start(hiloEstados);
