@@ -128,34 +128,34 @@ void funcionActualizarEstadoDeSensoresActual(uint32_t dataIn)
     if ((inputs & (1 << Pin_Descarte_3)) >> Pin_Descarte_3)
     {
         // aplico filtro para estar seguro de que se detecto un objeto
-        actualEstado_Descarte_3 = logica_transporte_1 ? funcionFiltroDeLecturas(Pin_Descarte_3, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_3, tiempoParaFiltro, thresholdsParaFiltro);
+        actualEstado_Descarte_3 = logica_Descarte_3 ? funcionFiltroDeLecturas(Pin_Descarte_3, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_3, tiempoParaFiltro, thresholdsParaFiltro);
     }
     else
     {
-        logica_transporte_1 ? actualEstado_Descarte_3 = false : actualEstado_Descarte_3 = true;
+        logica_Descarte_3 ? actualEstado_Descarte_3 = false : actualEstado_Descarte_3 = true;
     }
     if ((inputs & (1 << Pin_Descarte_4)) >> Pin_Descarte_4)
     {
         // aplico filtro para estar seguro de que se detecto un objeto
-        actualEstado_Descarte_4 = logica_transporte_2 ? funcionFiltroDeLecturas(Pin_Descarte_4, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_4, tiempoParaFiltro, thresholdsParaFiltro);
+        actualEstado_Descarte_4 = logica_Descarte_4 ? funcionFiltroDeLecturas(Pin_Descarte_4, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_4, tiempoParaFiltro, thresholdsParaFiltro);
     }
     else
     {
-        logica_transporte_2 ? actualEstado_Descarte_4 = false : actualEstado_Descarte_4 = true;
+        logica_Descarte_4 ? actualEstado_Descarte_4 = false : actualEstado_Descarte_4 = true;
     }
     if ((inputs & (1 << Pin_Descarte_5)) >> Pin_Descarte_5)
     {
         // aplico filtro para estar seguro de que se detecto un objeto
-        actualEstado_Descarte_5 = logica_final_transporte_lineal ? funcionFiltroDeLecturas(Pin_Descarte_5, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_5, tiempoParaFiltro, thresholdsParaFiltro);
+        actualEstado_Descarte_5 = logica_Descarte_5 ? funcionFiltroDeLecturas(Pin_Descarte_5, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_5, tiempoParaFiltro, thresholdsParaFiltro);
     }
     else
     {
-        logica_final_transporte_lineal ? actualEstado_Descarte_5 = false : actualEstado_Descarte_5 = true;
+        logica_Descarte_5 ? actualEstado_Descarte_5 = false : actualEstado_Descarte_5 = true;
     }
     if ((inputs & (1 << Pin_Descarte_6)) >> Pin_Descarte_6)
     {
         // aplico filtro para estar seguro de que se detecto un objeto
-        actualEstado_Descarte_6 = logica_final_transporte_lineal ? funcionFiltroDeLecturas(Pin_Descarte_6, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_6, tiempoParaFiltro, thresholdsParaFiltro);
+        actualEstado_Descarte_6 = logica_Descarte_6 ? funcionFiltroDeLecturas(Pin_Descarte_6, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_6, tiempoParaFiltro, thresholdsParaFiltro);
     }
     else
     {
@@ -164,7 +164,7 @@ void funcionActualizarEstadoDeSensoresActual(uint32_t dataIn)
     if ((inputs & (1 << Pin_Descarte_Manual)) >> Pin_Descarte_Manual)
     {
         // aplico filtro para estar seguro de que se detecto un objeto
-        actualEstado_Descarte_Manual = logica_final_transporte_lineal ? funcionFiltroDeLecturas(Pin_Descarte_Manual, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_Manual, tiempoParaFiltro, thresholdsParaFiltro);
+        actualEstado_Descarte_Manual = logica_Descarte_Manual ? funcionFiltroDeLecturas(Pin_Descarte_Manual, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_Descarte_Manual, tiempoParaFiltro, thresholdsParaFiltro);
     }
     else
     {
@@ -173,7 +173,7 @@ void funcionActualizarEstadoDeSensoresActual(uint32_t dataIn)
     if ((inputs & (1 << Pin_paso)) >> Pin_paso)
     {
         // aplico filtro para estar seguro de que se detecto un objeto
-        actualEstado_Paso = logica_final_transporte_lineal ? funcionFiltroDeLecturas(Pin_paso, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_paso, tiempoParaFiltro, thresholdsParaFiltro);
+        actualEstado_Paso = logica_Paso ? funcionFiltroDeLecturas(Pin_paso, tiempoParaFiltro, thresholdsParaFiltro) : !funcionFiltroDeLecturas(Pin_paso, tiempoParaFiltro, thresholdsParaFiltro);
     }
     else
     {
@@ -1391,13 +1391,24 @@ String funcionObtenerUnixTimeInterno()
 /*
 Esta funcion permite mandar siempre redondeando el tiempo para que sea un minuto justo
 */
-String redondeoUnixTime(String data)
+String redondeoUnixTime(const String &data)
 {
+    for (size_t i = 0; i < data.length(); i++)
+    {
+        if (!isdigit(data[i]))
+        {
+            // Manejar error de entrada no numérica
+            return "-1"; // O un valor que indique un error
+        }
+    }
+    // Convertir a tiempo Unix
     unsigned long ulUnixTime = data.toInt();
+
+    // Redondear al minuto más cercano
     unsigned long resto = ulUnixTime % 60;
     if (resto > 30)
     {
-        ulUnixTime = ulUnixTime + (60 - resto);
+        ulUnixTime += (60 - resto);
     }
     else if (resto == 0)
     {
@@ -1405,8 +1416,9 @@ String redondeoUnixTime(String data)
     }
     else
     {
-        ulUnixTime = ulUnixTime - resto;
+        ulUnixTime -= resto;
     }
+
     return String(ulUnixTime);
 }
 

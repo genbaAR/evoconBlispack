@@ -36,12 +36,15 @@ int inputNumberx[] = {1, 2, 3, 4, 5, 6}; //{1, 2, 3, 4, 5, 6};
 // La linea 16 utiliza el sensor de descarte estuchado con logica negativa
 // 1 logica positiva
 // 0 logica negativa
+/*
+
 #define logica_embazadora_1 0 // 0
 #define logica_embazadora_2 1
 #define logica_transporte_1 1
 #define logica_transporte_2 1
 #define logica_final_transporte_lineal 1
 #define logica_balanza_activa 1
+*/
 
 #define logica_Descarte_1 1 // 0
 #define logica_Descarte_2 1
