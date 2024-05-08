@@ -55,15 +55,6 @@ int inputNumberx[] = {1, 2, 3, 4, 5, 6}; //{1, 2, 3, 4, 5, 6};
 #define logica_Descarte_Manual 1
 #define logica_Paso 1
 //----------------------------------------------------------------Definicion de pin----------------------
-/*
-#define Pin_sensor_embazadora_1 DIN_READ_CH_PIN_03 // Pin_Sensor_descarte_primer_Cajon DIN_READ_CH_PIN_00
-#define Pin_sensor_embazadora_2 DIN_READ_CH_PIN_04 // Pin_Sensor_descarte_Estuchado DIN_READ_CH_PIN_01
-#define Pin_sensor_transporte_1 DIN_READ_CH_PIN_00 // Pin_Sensor_balanza_In DIN_READ_CH_PIN_02
-#define Pin_sensor_transporte_2 DIN_READ_CH_PIN_01 // Pin_Sensor_balanza_Out DIN_READ_CH_PIN_03
-#define Pin_Sensor_final_transporte_lineal DIN_READ_CH_PIN_05
-#define Pin_Sensor_descarte_segundo_Cajon DIN_READ_CH_PIN_06
-#define Pin_sensor_transporte_3 DIN_READ_CH_PIN_02 // Pin_Sensor_balanza_activa DIN_READ_CH_PIN_04
-*/
 /*Definimos los pines que van a cada entrada*/
 #define Pin_Descarte_1 DIN_READ_CH_PIN_00
 #define Pin_Descarte_2 DIN_READ_CH_PIN_01
@@ -77,14 +68,7 @@ int inputNumberx[] = {1, 2, 3, 4, 5, 6}; //{1, 2, 3, 4, 5, 6};
 #define Pin_led_Rojo 1
 
 //----------------------------------------------------------------Estado del sensor----------------------
-/*
-bool actualEstado_Sensor_embazadora_1 = false;
-bool actualEstado_Sensor_embazadora_2 = false;
-bool actualEstado_Sensor_transporte_1 = false;
-bool actualEstado_Sensor_transporte_2 = false;
-bool actualEstado_Sensor_final_transporte_lineal = false;
-bool actualEstado_Sensor_transporte_3 = false;
-*/
+
 bool actualEstado_Descarte_1 = false;
 bool actualEstado_Descarte_2 = false;
 bool actualEstado_Descarte_3 = false;
@@ -94,14 +78,7 @@ bool actualEstado_Descarte_6 = false;
 bool actualEstado_Descarte_Manual = false;
 bool actualEstado_Paso = false;
 
-/*
-bool previoEstado_Sensor_embazadora_1 = false;
-bool previoEstado_Sensor_embazadora_2 = false; // actualEstado_Sensor_descarte_estuchado = false;
-bool previoEstado_Sensor_transporte_1 = false; // actualEstado_Sensor_balanza_In = false;
-bool previoEstado_Sensor_transporte_2 = false; // actualEstado_Sensor_balanza_Out = false;
-bool previoEstado_Sensor_final_transporte_lineal = false;
-bool previoEstado_Sensor_transporte_3 = false; // actualEstado_Sensor_balanza_activa
-*/
+
 bool previoEstado_Descarte_1 = false;
 bool previoEstado_Descarte_2 = false;
 bool previoEstado_Descarte_3 = false;
@@ -112,17 +89,6 @@ bool previoEstado_Descarte_Manual = false;
 bool previoEstado_Paso = false;
 
 // Tiempo actual donde se esta ejecutando las cuentas
-/*
-int16_t actual_contador_embazadora_1 = 0;      // actual_contador_descarte_primer_cajon
-int16_t actual_contador_embazadora_2 = 0;      // actual_contador_descarte_estuchado = 0;
-int16_t actual_contador_descarte_embazado = 0; // actual_contador_balanza_in = 0;
-int16_t actual_contador_transporte_1 = 0;      // actual_contador_balanza_out
-int16_t actual_contador_transporte_2 = 0;      // actual_contador_descarte_etiquetado
-int16_t actual_contador_transporte_3 = 0;
-int16_t actual_contador_producto_bueno = 0;
-int16_t actual_contador_fin_linea = 0;
-int AcarreoEtiquetado = 0;
-*/
 
 int16_t actual_contador_producto_bueno_durante_un_paso = 0;
 int16_t actual_contador_descarte_en_un_paso = 0;
@@ -150,13 +116,6 @@ del serial.
 II inicia el contador general
 IR reinicia el contador general
 IP imprime el contador general
-*/
-/*
-int16_t contadorGeneral_embazadora_1 = 0;
-int16_t contadorGeneral_embazadora_2 = 0;
-int16_t contadorGeneral_descarte_embazado = 0;
-int16_t contadorGeneral_producto_bueno = 0;
-int16_t contadorGeneral_producto_total = 0;
 */
 
 int16_t contadorGeneral_Descarte_Manual = 0;
