@@ -46,6 +46,7 @@ void hilo_Para_Lectura_Pin_IN()
         {
             funcionActualizarEstadoDeSensoresActual(digital_inputs.readAll());
         }
+        // if(sensor de corte){conteo_de_Productos_dentro_del_batch();}
         conteo_de_Productos_dentro_del_batch();
         funcionActualizarEstadoDeSensoresAnterior();
         ThisThread::sleep_for(10ms); // Wait for 10 miliseconds

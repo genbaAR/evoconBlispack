@@ -253,11 +253,11 @@ LittleFS_MBED *myFS;
 char fileName1[] = MBED_LITTLEFS_FILE_PREFIX "/evocon.txt";
 uint32_t FILE_SIZE_KB = 64;
 //========================Wifi data ==============
-bool flagActivarWifi = true;      // flag to activate wifi connection
-bool flagWifiWithoutDHCP = false; // flag to activate fixed ip
-char ssid[] = "HUAWEI_311_1061";  //"Chiquito-2.4GHz";  //"HUAWEI_311_1061";  //"Robot Envasadora"; //"Redmi9T";//  your network SSID (name)
-char pass[] = "genba2024";        //"ClaRe..2022";      //"genba2024";        //"GD!6#aGRD5";       // "9715174c9cd6";// your network password (use for WPA, or use as key for WEP)
-byte mac[6];                      // the MAC address of your Wifi shield
+bool flagActivarWifi = false;    // flag to activate wifi connection
+bool flagWifiWithoutDHCP = true; // flag to activate fixed ip
+char ssid[] = "HUAWEI_311_1061"; //"Chiquito-2.4GHz";  //"HUAWEI_311_1061";  //"Robot Envasadora"; //"Redmi9T";//  your network SSID (name)
+char pass[] = "genba2024";       //"ClaRe..2022";      //"genba2024";        //"GD!6#aGRD5";       // "9715174c9cd6";// your network password (use for WPA, or use as key for WEP)
+byte mac[6];                     // the MAC address of your Wifi shield
 //=========================Function declaration========================
 
 #endif
