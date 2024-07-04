@@ -341,8 +341,11 @@ void conteo_de_Productos_dentro_del_batch() // Finished
                 }
 
                 actual_contador_descarte_en_un_paso += producto_por_paso - actual_contador_producto_bueno_durante_un_paso;
-                actual_contador_producto_bueno_por_batch += actual_contador_descarte_en_un_paso;
+                actual_contador_producto_bueno_por_batch += actual_contador_producto_bueno_durante_un_paso;
+                actual_contador_descarte_por_batch += actual_contador_descarte_en_un_paso;
+
                 actual_contador_descarte_en_un_paso = 0;
+                actual_contador_producto_bueno_durante_un_paso = 0;
             }
             if (actualEstado_Descarte_Manual and !previoEstado_Descarte_Manual)
             {

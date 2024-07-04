@@ -7,7 +7,8 @@ using namespace machinecontrol;
 
 //===============================Selección de la linea==================
 #define verisionOfSoftware "V1.1.1-20-04-2024"
-#define LINEA 10 // Posibles valores***************************************************************************************************************************
+#define LINEA 10
+// Posibles valores***************************************************************************************************************************
 // Estos valores permiten configurar rapidamente todos los parametros a
 // a definir por Adium desde IT
 
@@ -28,7 +29,7 @@ const char *dns2 = "200.40.220.245";
 const char *gateway = "192.168.137.1";
 const char *mask = "255.255.255.0";
 // uint8_t mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
-int inputNumberx[] = {1, 2, 3, 4, 5, 6}; //{1, 2, 3, 4, 5, 6};
+int inputNumberx[] = {49, 50, 51, 4, 5, 6}; //{1, 2, 3, 4, 5, 6};
 
 #endif
 
@@ -77,7 +78,6 @@ bool actualEstado_Descarte_5 = false;
 bool actualEstado_Descarte_6 = false;
 bool actualEstado_Descarte_Manual = false;
 bool actualEstado_Paso = false;
-
 
 bool previoEstado_Descarte_1 = false;
 bool previoEstado_Descarte_2 = false;
