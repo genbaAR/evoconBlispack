@@ -182,7 +182,7 @@ bool flagFuncionando = false;                    // "This flag indicates when th
 #define CharkeyImprimirContadorListoEnviar 'c'
 #define CharkeyImprimirContadorActual 'A'
 #define CharkeyImprimir 'i'
-#define CharMostrarLetras 't'
+#define CharMostrarLetras 'H'
 #define CharSendContinuo 'u'
 #define CharSendMac 'm'
 #define CharJSONVew 'f'
@@ -208,6 +208,7 @@ bool flagFuncionando = false;                    // "This flag indicates when th
 #define CharkeyImprimirEstadosWifi 'W'
 #define CharkeyImprimirUnixTime 'U'
 #define CharkeyKeepAlive 'K'
+#define CharkeyAPI 'E'
 //----------------------------------------------------------------Evocon----------------------------------------------------------------
 // int multiplicador_de_producto_X_embazado = 6;
 

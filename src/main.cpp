@@ -597,6 +597,8 @@ void hiloSerialControl()
             else if (entrada == CharMostrarLetras)
             {
                 Serial.println("=============================================");
+                Serial.println("Imprimir esta ayuda \t\t\t== h");
+                Serial.println("Imprimir Evocon Device \t\t\t== E");
                 Serial.println("Activar/desactivar impresion de datos \t\t\t== i");
                 Serial.println("Activar/desactivar impresion de Socket \t\t\t== d");
                 Serial.println("Activar/desactivar impresion de estados de sensores \t== s");
@@ -644,6 +646,10 @@ void hiloSerialControl()
             {
                 keyImprimirJSON = !keyImprimirJSON;
                 Serial.println("valor es = " + String(keyImprimirJSON));
+            }
+            else if (entrada == CharkeyAPI)
+            {
+                Serial.println("valor es = " + deviceIdx);
             }
             else if (entrada == charSerialFile)
             {
