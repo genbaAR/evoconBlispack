@@ -546,7 +546,7 @@ String funcionRequestTosend(char *serverToSend, String headerToSend, String get_
     }
     return request;
 }
-void funcionConnectAndSendSocketSSL(char *servidor, int port, String tipoDeSolicitud, String get_post, String autentification)
+int funcionConnectAndSendSocketSSL(char *servidor, int port, String tipoDeSolicitud, String get_post, String autentification)
 {
     WiFiSSLClient clientSSl;
     delay(100);
@@ -573,6 +573,7 @@ void funcionConnectAndSendSocketSSL(char *servidor, int port, String tipoDeSolic
     else
     {
         Serial.println("connected to server failed");
+        return -1;
     }
     const size_t rlen{1024};
     char rbuffer[rlen + 1]{};
@@ -599,6 +600,7 @@ void funcionConnectAndSendSocketSSL(char *servidor, int port, String tipoDeSolic
             if (keyImprimir and keyImprimirSocketData)
             {
                 Serial.println("Cerrando recepcion por exceso de tiempo maximo");
+                return -1;
             }
             break;
         }
@@ -614,8 +616,11 @@ void funcionConnectAndSendSocketSSL(char *servidor, int port, String tipoDeSolic
             Serial.println("disconnecting from server.");
         }
         clientSSl.stop();
+        return -1;
     }
+    return 0;
 }
+
 String funcionConnectAndSendSocketHTTP(char *servidor, int port, String tipoDeSolicitud, String get_post, String dataToSend)
 {
     WiFiClient client;
@@ -1425,17 +1430,20 @@ String redondeoUnixTime(const String &data)
     return String(ulUnixTime);
 }
 
-/*Esta funcion genera un keepAlive del dispocitivo para saber que esta funcionando*/
+/*Esta funcion genera un keepAlive del dispositivo para saber que esta funcionando*/
 void funcionKeepAlive()
 {
-    if (keyImprimir && keyImprimirKeepAlive)
-    {
-        printLine();
-        Serial.print("La hora del keepAlive es : ");
-        Serial.println(funcionObtenerUnixTimeInterno());
-        printLine();
+    if (funcionConnectAndSendSocketSSL(serverToSendData, 443, requestToKeepAlive, "GET ", "") == 0){
+        if (keyImprimir && keyImprimirKeepAlive)
+        {
+            printLine();
+            Serial.print("La hora del keepAlive es : ");
+            Serial.println(funcionObtenerUnixTimeInterno());
+            printLine();
+        }
+    } else {
+        
     }
-    funcionConnectAndSendSocketSSL(serverToSendData, 443, requestToKeepAlive, "GET ", "");
 }
 /*esta funcion permite enviar periodicamente el keepAlive */
 void funcionActivarKeepAlive(unsigned long *tiempokeepAlive)
