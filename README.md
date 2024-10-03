@@ -6,6 +6,11 @@
     Usuario andres@genba
     Password E87hOFxe
 
+## Adding new portenta device to Evocon
+
+1. Ask Evocon to create dashboard for a new client and receive de device id APINAME
+2. Send device MAC address to Evocon
+
 ## Getting internet time
 
 Here's our EPOCH time server address:
@@ -85,3 +90,14 @@ https://evocon.notion.site/Help-Support-1fce89bd3f624aba977dbbda5ef0224a
     Commercial contact karel@evocon.com
     Technical contact erki@evocon.com
     Support contact support@evocon.com
+
+
+## About this code
+
+This code is based on the Arduino Core for Mbed devices
+https://registry.platformio.org/tools/platformio/framework-arduino-mbed
+
+
+## Line inputs numbers for Adium
+
+https://docs.google.com/spreadsheets/d/19DP-8F4ckhvYHnfBg3IiPtPMMPCcYtkH4N1F6mz8iFY/edit?gid=0#gid=0

@@ -572,7 +572,8 @@ int funcionConnectAndSendSocketSSL(char *servidor, int port, String tipoDeSolici
     }
     else
     {
-        Serial.println("connected to server failed");
+        Serial.print("connected to server failed ");
+        Serial.println(servidor);
         return -1;
     }
     const size_t rlen{1024};

@@ -15,7 +15,7 @@ using namespace machinecontrol;
 #define dnsAdium "192.168.1.236"    //
 #define gatewayAdium "10.66.20.254" //"10.66.20.254"
 #define maskAdium "255.255.255.0"
-String deviceIdx = "APIGENBA"; //"APIADIUM";
+String deviceIdx = "APIADI";//"APIGENBA";
 //=========================Configuracion de Lineas No tocar=========
 #if LINEA == 1
 const char *ip "10.66.20.56" const char *dns1 dnsAdium const char *gateway gatewayAdium const char *mask maskAdium
@@ -23,10 +23,10 @@ const char *ip "10.66.20.56" const char *dns1 dnsAdium const char *gateway gatew
 int inputNumberx[] = {43, 44, 45, 46, 47, 48};
 
 #elif LINEA == 10
-const char *ip = "192.168.137.223";
-const char *dns1 = "200.40.30.245";
-const char *dns2 = "200.40.220.245";
-const char *gateway = "192.168.137.1";
+const char *ip = "10.66.25.69";
+const char *dns1 = "192.168.1.236";
+const char *dns2 = "192.168.1.236";
+const char *gateway = "10.66.25.254";
 const char *mask = "255.255.255.0";
 // uint8_t mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 int inputNumberx[] = {49, 50, 51, 4, 5, 6}; //{1, 2, 3, 4, 5, 6};
@@ -182,7 +182,7 @@ bool flagFuncionando = false;                    // "This flag indicates when th
 #define CharkeyImprimirContadorListoEnviar 'c'
 #define CharkeyImprimirContadorActual 'A'
 #define CharkeyImprimir 'i'
-#define CharMostrarLetras 'H'
+#define CharMostrarLetras 'h'
 #define CharSendContinuo 'u'
 #define CharSendMac 'm'
 #define CharJSONVew 'f'
