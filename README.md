@@ -101,3 +101,7 @@ https://registry.platformio.org/tools/platformio/framework-arduino-mbed
 ## Line inputs numbers for Adium
 
 https://docs.google.com/spreadsheets/d/19DP-8F4ckhvYHnfBg3IiPtPMMPCcYtkH4N1F6mz8iFY/edit?gid=0#gid=0
+
+## Get active product from Evocon
+
+https://api.evocon.com/api/reports/activeproduct?stationId=9
