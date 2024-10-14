@@ -307,7 +307,7 @@ void conteo_de_Productos_dentro_del_batch() // Finished
             if (actualEstado_Paso and !previoEstado_Paso)
             {
                 actual_contador_producto_bueno_durante_un_paso = 0; // Initialize the variable 'actual_contador_producto_bueno_durante_un_paso' to 0.
-                // contador_de_pasos_por_batch += 1;
+                contador_de_pasos_por_batch += 1;
 
                 if (actualEstado_Descarte_1 and !previoEstado_Descarte_1)
                 {
@@ -340,17 +340,12 @@ void conteo_de_Productos_dentro_del_batch() // Finished
                     actual_contador_producto_bueno_durante_un_paso += 1;
                 }
 
-                if (actual_contador_producto_bueno_durante_un_paso > producto_por_paso){
-                    actual_contador_producto_bueno_durante_un_paso = producto_por_paso;
-                }
-
                 actual_contador_descarte_en_un_paso += producto_por_paso - actual_contador_producto_bueno_durante_un_paso;
                 actual_contador_producto_bueno_por_batch += actual_contador_producto_bueno_durante_un_paso;
                 actual_contador_descarte_por_batch += actual_contador_descarte_en_un_paso;
 
                 actual_contador_descarte_en_un_paso = 0;
                 actual_contador_producto_bueno_durante_un_paso = 0;
-
             }
             if (actualEstado_Descarte_Manual and !previoEstado_Descarte_Manual)
             {
@@ -415,9 +410,7 @@ String dataExtraction(String response)
 }
 String funcionJsonCreator(String diviceIdx, int inputNumberx[], String epochTimex)
 {
-
     JSONVar jsonArray;
-
     if (producto_por_paso < 6)
     {
         jsonArray[0]["deviceId"] = diviceIdx;
@@ -427,13 +420,11 @@ String funcionJsonCreator(String diviceIdx, int inputNumberx[], String epochTime
     }
     else
     {
-
         jsonArray[0]["deviceId"] = diviceIdx;
         jsonArray[0]["inputNumber"] = inputNumberx[0];
         jsonArray[0]["eventTime"] = epochTimex;
         jsonArray[0]["signal"] = listoEnviar_contador_producto_total;
     }
-
     jsonArray[1]["deviceId"] = diviceIdx;
     jsonArray[1]["inputNumber"] = inputNumberx[1];
     jsonArray[1]["eventTime"] = epochTimex;
@@ -1450,7 +1441,8 @@ String redondeoUnixTime(const String &data)
 /*Esta funcion genera un keepAlive del dispositivo para saber que esta funcionando*/
 void funcionKeepAlive()
 {
-    if (funcionConnectAndSendSocketSSL(serverToSendData, 443, requestToKeepAlive, "GET ", "") == 0){
+    if (funcionConnectAndSendSocketSSL(serverToSendData, 443, requestToKeepAlive, "GET ", "") == 0)
+    {
         if (keyImprimir && keyImprimirKeepAlive)
         {
             printLine();
@@ -1458,8 +1450,9 @@ void funcionKeepAlive()
             Serial.println(funcionObtenerUnixTimeInterno());
             printLine();
         }
-    } else {
-        
+    }
+    else
+    {
     }
 }
 /*esta funcion permite enviar periodicamente el keepAlive */

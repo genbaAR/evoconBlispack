@@ -219,8 +219,8 @@ char server3[] = "eoe3m066beg7c7s.m.pipedream.net"; //"192.168.1.4"; //"10.66.20
 int port = 80;
 String encabezadoMuchos = "/shards?multiple=true "; // https://api.evocon.com/shards?multiple=true
 String requestToTime = "/EvoconReportingServer/rest/v1/time/APIGENBA";
-String requestToBatch = "/api/reports/activeproduct?stationId=1";
-String autentification = "Authorization: Basic YXBpdXNlckBzYW1hbjp0NXMxTlVKWXFFZjN6dVFKVEN0NlBlT3hSQ1ZZRlQ=";
+String requestToBatch = "/api/reports/activeproduct?stationId=9";
+String autentification = "Authorization: Basic RVZPRjhDNDkwQUM3MDFDNEUzOlJkQ2tjd2JBZUFDWU93ZGFSbHVY==";
 String requestToKeepAlive = "/EvoconReportingServer/rest/v1/time/" + deviceIdx;
 String unixTime = "1681579521";
 int counter_Unix_Time_start = 10; // maxima cantidad de veces que se testeara que la hora unix sea actualizada
