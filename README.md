@@ -105,3 +105,33 @@ https://docs.google.com/spreadsheets/d/19DP-8F4ckhvYHnfBg3IiPtPMMPCcYtkH4N1F6mz8
 ## Get active product from Evocon
 
 https://api.evocon.com/api/reports/activeproduct?stationId=9
+
+## Multipliers
+
+Signal multiplier -   This decimal value is multiplied by the Signal value
+       of the data event and added as the total and good
+       quantity of a circle in the Shift view.
+0 means that the result of the multiplication is 0
+and a circle is not added to the Shift view.
+<0 means that the result is negative and total
+quantity is removed from the previous circle
+>0 means that 1 signal does not mean 1 
+unit of production.
+For example, if 1 signal always means 6 bottles of water,
+we can use 6 as Signal multiplier to get 6 bottles per 1 signal.
+Or if 1 signal of an encoder output means 0.01 meters of produced
+material, we can specify Signal multiplier as 0.01 and need
+not set this value for each product in the Settings.
+Scrap multiplier  -   Similar to signal multiplier.
+0 means that scrap is not added or removed as a result of processing
+this event
+<0 means that the result of multiplication worth of scrap will be
+removed from the previous circle(s). If the previous circle does not
+have enough scrap, the system will search previous circles until
+a changeover or shift change is reached.
+>0 means that the result of multiplication worth of scrap will be
+added to the previous circle(s). If the good quantity of the previous
+circle is less than scrap to be added, the system will look for a
+previous circle to change good quantity to scrap quantity.
+
+Scrap reason id - If Scrap multiplier is used, specifying scrap reason id will make the system automatically assign this scrap reason Id. Useful if an input is connected to one specific scrap signal (weight or fill level check)
