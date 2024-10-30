@@ -492,13 +492,17 @@ void parseJsonData(String data, bool enablePrint = true)
         {
             flagCheckTheProductQuantityUpdated = true; // update the product quantity
             producto_por_paso = (int)myObject["unitQty"];
+            product_id = (int)myObject["productId"];
+
             if (enablePrint)
             {
                 printLine();
                 Serial.print("Element ");
                 Serial.print(i);
                 Serial.print(", unitQty = ");
-                Serial.println((int)myObject["unitQty"]);
+                Serial.print((int)myObject["unitQty"]);
+                Serial.print(", productId = ");
+                Serial.println((int)myObject["productId"]);
                 printLine();
             }
         }

@@ -123,6 +123,7 @@ int16_t contadorGeneral_producto_bueno_por_batch = 0;
 int16_t contadorGeneral_descarte_por_batch = 0;
 
 int producto_por_paso = 6; // This value indicates the maximum product in a batch
+int product_id = 0;
 
 // Constantes de funcionamiento
 uint16_t tiempoParaFiltro = 5; // 20 ms para asegurarnos de que fue presionado correctametne
@@ -220,7 +221,7 @@ int port = 80;
 String encabezadoMuchos = "/shards?multiple=true "; // https://api.evocon.com/shards?multiple=true
 String requestToTime = "/EvoconReportingServer/rest/v1/time/APIGENBA";
 String requestToBatch = "/api/reports/activeproduct?stationId=9";
-String autentification = "Authorization: Basic RVZPRjhDNDkwQUM3MDFDNEUzOlJkQ2tjd2JBZUFDWU93ZGFSbHVY==";
+String autentification = "Authorization: Basic RVZPRjhDNDkwQUM3MDFDNEUzOlJkQ2tjd2JBZUFDWU93ZGFSbHVY";
 String requestToKeepAlive = "/EvoconReportingServer/rest/v1/time/" + deviceIdx;
 String unixTime = "1681579521";
 int counter_Unix_Time_start = 10; // maxima cantidad de veces que se testeara que la hora unix sea actualizada
@@ -256,8 +257,8 @@ uint32_t FILE_SIZE_KB = 64;
 //========================Wifi data ==============
 bool flagActivarWifi = false;    // flag to activate wifi connection
 bool flagWifiWithoutDHCP = true; // flag to activate fixed ip
-char ssid[] = "HUAWEI_311_1061"; //"Chiquito-2.4GHz";  //"HUAWEI_311_1061";  //"Robot Envasadora"; //"Redmi9T";//  your network SSID (name)
-char pass[] = "genba2024";       //"ClaRe..2022";      //"genba2024";        //"GD!6#aGRD5";       // "9715174c9cd6";// your network password (use for WPA, or use as key for WEP)
+char ssid[] = "MagicLab"; //"Chiquito-2.4GHz";  //"HUAWEI_311_1061";  //"Robot Envasadora"; //"Redmi9T";//  your network SSID (name)
+char pass[] = "kindofMagic";       //"ClaRe..2022";      //"genba2024";        //"GD!6#aGRD5";       // "9715174c9cd6";// your network password (use for WPA, or use as key for WEP)
 byte mac[6];                     // the MAC address of your Wifi shield
 //=========================Function declaration========================
 
