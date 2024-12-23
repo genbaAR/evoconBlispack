@@ -135,3 +135,7 @@ circle is less than scrap to be added, the system will look for a
 previous circle to change good quantity to scrap quantity.
 
 Scrap reason id - If Scrap multiplier is used, specifying scrap reason id will make the system automatically assign this scrap reason Id. Useful if an input is connected to one specific scrap signal (weight or fill level check)
+
+## MAC
+
+    MAC ADDRESS 00:80:e1:3a:00:3a
