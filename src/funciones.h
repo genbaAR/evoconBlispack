@@ -340,8 +340,8 @@ void conteo_de_Productos_dentro_del_batch() // Finished
                     actual_contador_producto_bueno_durante_un_paso += 1;
                 }
 
-                actual_contador_descarte_en_un_paso += producto_por_paso - actual_contador_producto_bueno_durante_un_paso;
-                actual_contador_producto_bueno_por_batch += actual_contador_producto_bueno_durante_un_paso;
+                actual_contador_producto_bueno_por_batch += producto_por_paso - actual_contador_producto_bueno_durante_un_paso;
+                actual_contador_descarte_en_un_paso += actual_contador_producto_bueno_durante_un_paso;
                 actual_contador_descarte_por_batch += actual_contador_descarte_en_un_paso;
 
                 actual_contador_descarte_en_un_paso = 0;
@@ -467,7 +467,7 @@ void parseJsonData(String data, bool enablePrint = true)
         if (JSON.typeof(myObject) != "object")
         {
             if (enablePrint)
-            {
+        {
                 Serial.println("\nArray element is not an object!");
             }
             continue;

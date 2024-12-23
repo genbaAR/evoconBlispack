@@ -28,10 +28,14 @@ const char *dns1 = "192.168.1.236";
 const char *dns2 = "192.168.1.236";
 const char *gateway = "10.66.25.254";
 const char *mask = "255.255.255.0";
-// uint8_t mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
+//AE:67:D0:61:C4:04
+//uint8_t mac[] = {0xAE, 0x67, 0xD0, 0x61, 0xC4, 0x04};
 int inputNumberx[] = {49, 50, 51, 4, 5, 6}; //{1, 2, 3, 4, 5, 6};
 
 #endif
+
+//ETH_HandleTypeDef heth;
+//std::memcpy(heth.Init.MACAddr, mac, 6);
 
 //----------------------------------------------------------------Logica del sensor + o menos----------------------
 // La linea 16 utiliza el sensor de descarte estuchado con logica negativa

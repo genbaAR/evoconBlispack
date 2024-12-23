@@ -192,6 +192,8 @@ void hiloEvocon()
         EthernetInterface net;
         net.set_network(ip, mask, gateway);
         net.add_dns_server(dns1, NULL);
+        Serial.println("Setting mac");
+        //net.set_mac_address(mac, 6);
         //  Show the network address
         net.connect();
         SocketAddress addr;
@@ -239,21 +241,24 @@ void hiloEvocon()
     }
     for (;;)
     {
+        // Serial.println("Printing mac");
 
         if (keyImprimirMac)
         {
+            
+            
             Serial.print("valor es = ");
-            Serial.print(mac[5], HEX);
-            Serial.print(":");
-            Serial.print(mac[4], HEX);
-            Serial.print(":");
-            Serial.print(mac[3], HEX);
-            Serial.print(":");
-            Serial.print(mac[2], HEX);
+            Serial.print(mac[0], HEX);
             Serial.print(":");
             Serial.print(mac[1], HEX);
             Serial.print(":");
-            Serial.println(mac[0], HEX);
+            Serial.print(mac[2], HEX);
+            Serial.print(":");
+            Serial.print(mac[3], HEX);
+            Serial.print(":");
+            Serial.print(mac[4], HEX);
+            Serial.print(":");
+            Serial.println(mac[5], HEX);
             keyImprimirMac = false;
         }
         if (estado != estadoanterior)
