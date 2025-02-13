@@ -224,7 +224,8 @@ char server3[] = "eoe3m066beg7c7s.m.pipedream.net"; //"192.168.1.4"; //"10.66.20
 int port = 80;
 String encabezadoMuchos = "/shards?multiple=true "; // https://api.evocon.com/shards?multiple=true
 String requestToTime = "/EvoconReportingServer/rest/v1/time/APIGENBA";
-String requestToBatch = "/api/reports/activeproduct?stationId=9";
+// String requestToBatch = "/api/reports/activeproduct?stationId=9";
+String requestToBatch = "/api/reports/active_product_info?stationId=9";
 String autentification = "Authorization: Basic RVZPRjhDNDkwQUM3MDFDNEUzOlJkQ2tjd2JBZUFDWU93ZGFSbHVY";
 String requestToKeepAlive = "/EvoconReportingServer/rest/v1/time/" + deviceIdx;
 String unixTime = "1681579521";
@@ -259,8 +260,8 @@ LittleFS_MBED *myFS;
 char fileName1[] = MBED_LITTLEFS_FILE_PREFIX "/evocon.txt";
 uint32_t FILE_SIZE_KB = 64;
 //========================Wifi data ==============
-bool flagActivarWifi = false;    // flag to activate wifi connection
-bool flagWifiWithoutDHCP = true; // flag to activate fixed ip
+bool flagActivarWifi = true;    // flag to activate wifi connection
+bool flagWifiWithoutDHCP = false; // flag to activate fixed ip
 char ssid[] = "MagicLab"; //"Chiquito-2.4GHz";  //"HUAWEI_311_1061";  //"Robot Envasadora"; //"Redmi9T";//  your network SSID (name)
 char pass[] = "kindofMagic";       //"ClaRe..2022";      //"genba2024";        //"GD!6#aGRD5";       // "9715174c9cd6";// your network password (use for WPA, or use as key for WEP)
 byte mac[6];                     // the MAC address of your Wifi shield

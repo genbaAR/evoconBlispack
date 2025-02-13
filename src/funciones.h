@@ -364,8 +364,9 @@ String dataExtraction(String response)
 
     const String clTag = "Content-Length: ";
     auto clIndex = response.indexOf(clTag);
+    String content = response.substring(clIndex);
     clIndex += clTag.length();
-    auto cl = response.substring(clIndex, clIndex + 2);
+    auto cl = response.substring(clIndex, clIndex + content.indexOf("\r\n"));
     String dataRetrun = "no data";
     if (keyImprimirSocketData)
     {
@@ -411,20 +412,12 @@ String dataExtraction(String response)
 String funcionJsonCreator(String diviceIdx, int inputNumberx[], String epochTimex)
 {
     JSONVar jsonArray;
-    if (producto_por_paso < 6)
-    {
-        jsonArray[0]["deviceId"] = diviceIdx;
-        jsonArray[0]["inputNumber"] = inputNumberx[2];
-        jsonArray[0]["eventTime"] = epochTimex;
-        jsonArray[0]["signal"] = listoEnviar_contador_producto_total;
-    }
-    else
-    {
-        jsonArray[0]["deviceId"] = diviceIdx;
-        jsonArray[0]["inputNumber"] = inputNumberx[0];
-        jsonArray[0]["eventTime"] = epochTimex;
-        jsonArray[0]["signal"] = listoEnviar_contador_producto_total;
-    }
+
+    jsonArray[0]["deviceId"] = diviceIdx;
+    jsonArray[0]["inputNumber"] = inputNumberx[0];
+    jsonArray[0]["eventTime"] = epochTimex;
+    jsonArray[0]["signal"] = listoEnviar_contador_producto_total;
+
     jsonArray[1]["deviceId"] = diviceIdx;
     jsonArray[1]["inputNumber"] = inputNumberx[1];
     jsonArray[1]["eventTime"] = epochTimex;
@@ -442,7 +435,7 @@ void parseJsonData(String data, bool enablePrint = true)
     if (enablePrint)
     {
         Serial.println("parse");
-        Serial.println("=====");
+        Serial.println(data);
     }
 
     // Parsea la cadena JSON
@@ -473,7 +466,7 @@ void parseJsonData(String data, bool enablePrint = true)
             continue;
         }
 
-        // Verifica si el objeto tiene la propiedad "productId"
+        // Verifica si el objeto tiene la propiedad "productId" 
         if (myObject.hasOwnProperty("productId"))
         {
             if (enablePrint)
@@ -487,11 +480,11 @@ void parseJsonData(String data, bool enablePrint = true)
             }
         }
 
-        // Verifica si el objeto tiene la propiedad "unitQty"
-        if (myObject.hasOwnProperty("unitQty"))
+        // Verifica si el objeto tiene la propiedad "unitQty" "productAlternativeUnitConversionMultiplier"
+        if (myObject.hasOwnProperty("productAlternativeUnitConversionMultiplier"))
         {
             flagCheckTheProductQuantityUpdated = true; // update the product quantity
-            producto_por_paso = (int)myObject["unitQty"];
+            producto_por_paso = (int)myObject["productAlternativeUnitConversionMultiplier"];
             product_id = (int)myObject["productId"];
 
             if (enablePrint)
@@ -499,10 +492,10 @@ void parseJsonData(String data, bool enablePrint = true)
                 printLine();
                 Serial.print("Element ");
                 Serial.print(i);
-                Serial.print(", unitQty = ");
-                Serial.print((int)myObject["unitQty"]);
+                Serial.print(", productAlternativeUnitConversionMultiplier = ");
+                Serial.print(myObject["productAlternativeUnitConversionMultiplier"]);
                 Serial.print(", productId = ");
-                Serial.println((int)myObject["productId"]);
+                Serial.println(myObject["productId"]);
                 printLine();
             }
         }
