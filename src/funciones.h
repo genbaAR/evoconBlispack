@@ -312,32 +312,44 @@ void conteo_de_Productos_dentro_del_batch() // Finished
                 if (actualEstado_Descarte_1 and !previoEstado_Descarte_1)
                 {
                     // Count the number of actual good production
-                    actual_contador_producto_bueno_durante_un_paso += 1;
+                    if (producto_por_paso > 0){
+                        actual_contador_producto_bueno_durante_un_paso += 1;
+                    }
                 }
                 if (actualEstado_Descarte_2 and !previoEstado_Descarte_2)
                 {
                     // Count the number of actual good production
-                    actual_contador_producto_bueno_durante_un_paso += 1;
+                    if (producto_por_paso > 1){
+                        actual_contador_producto_bueno_durante_un_paso += 1;
+                    }
                 }
                 if (actualEstado_Descarte_3 and !previoEstado_Descarte_3)
                 {
                     // Count the number of actual good production
-                    actual_contador_producto_bueno_durante_un_paso += 1;
+                    if (producto_por_paso > 2){
+                        actual_contador_producto_bueno_durante_un_paso += 1;
+                    }
                 }
                 if (actualEstado_Descarte_4 and !previoEstado_Descarte_4)
                 {
                     // Count the number of actual good production
-                    actual_contador_producto_bueno_durante_un_paso += 1;
+                    if (producto_por_paso > 3){
+                        actual_contador_producto_bueno_durante_un_paso += 1;
+                    }
                 }
                 if (actualEstado_Descarte_5 and !previoEstado_Descarte_5)
                 {
                     // Count the number of actual good production
-                    actual_contador_producto_bueno_durante_un_paso += 1;
+                    if (producto_por_paso > 4){
+                        actual_contador_producto_bueno_durante_un_paso += 1;
+                    }
                 }
                 if (actualEstado_Descarte_6 and !previoEstado_Descarte_6)
                 {
                     // Count the number of actual good production
-                    actual_contador_producto_bueno_durante_un_paso += 1;
+                    if (producto_por_paso > 5){
+                        actual_contador_producto_bueno_durante_un_paso += 1;
+                    }
                 }
 
                 actual_contador_producto_bueno_por_batch += producto_por_paso - actual_contador_producto_bueno_durante_un_paso;
